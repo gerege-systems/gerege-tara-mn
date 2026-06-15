@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        module: [gerege-login, gerege-admin]
+        module: [dan-login, dan-admin]
     defaults:
       run:
         working-directory: ${{ matrix.module }}

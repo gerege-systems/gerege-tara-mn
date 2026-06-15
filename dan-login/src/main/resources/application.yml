@@ -1,0 +1,37 @@
+server:
+  port: 3000
+
+spring:
+  application:
+    name: dan-login
+  thymeleaf:
+    cache: false   # хөгжүүлэлтэд template-ийг шууд дахин ачаална
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+# ДАН-н тохиргоо
+dan:
+  hydra:
+    # Hydra-гийн ADMIN порт. Локал: localhost:4445; контейнерт: http://hydra:4445
+    admin-url: ${DAN_HYDRA_ADMIN_URL:http://localhost:4445}
+  # Демо нэвтрэлтийн урсгал (зөвхөн үзүүлбэр; production-д хасна)
+  demo:
+    issuer-public: ${DAN_DEMO_ISSUER:http://localhost:4444}   # браузерт харагдах Hydra public
+    token-url: ${DAN_DEMO_TOKEN_URL:http://localhost:4444}     # серверээс токен солих (контейнерт http://hydra:4444)
+    client-id: dan-demo-rp
+    # Демо RP-ийн нийтэд мэдэгдэх нууц (register-client.sh-тэй ижил). Зөвхөн локал
+    # демод хүчинтэй; production-д энэ демо хэсгийг бүхэлд нь хасна. Env-ээр дарна.
+    client-secret: ${DAN_DEMO_CLIENT_SECRET:demo-secret-change-me}
+    redirect-uri: ${DAN_DEMO_REDIRECT:http://localhost:3000/demo/callback}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    mn.gov.dan: DEBUG

@@ -1,0 +1,22 @@
+server:
+  port: 4000
+
+spring:
+  application:
+    name: dan-admin
+  thymeleaf:
+    cache: false
+
+dan:
+  hydra:
+    admin-url: ${DAN_HYDRA_ADMIN_URL:http://localhost:4445}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    mn.gov.dan: DEBUG

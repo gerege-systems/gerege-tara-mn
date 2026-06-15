@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Гэрэгэд туршилтын үйлчилгээ (Relying Party / OAuth2 client) бүртгэх.
+# ДАНд туршилтын үйлчилгээ (Relying Party / OAuth2 client) бүртгэх.
 #
 # Хэрэглээ:  ./register-client.sh
 # Шаардлага: Hydra ажиллаж байх (docker compose up -d), curl, jq
@@ -17,8 +17,8 @@ echo "→ Туршилтын үйлчилгээ бүртгэж байна..."
 curl -fsS -X POST "$HYDRA_ADMIN/admin/clients" \
   -H "Content-Type: application/json" \
   -d '{
-    "client_id": "gerege-demo-rp",
-    "client_name": "Гэрэгэ жишиг үйлчилгээ",
+    "client_id": "dan-demo-rp",
+    "client_name": "ДАН жишиг үйлчилгээ",
     "client_secret": "demo-secret-change-me",
     "grant_types": ["authorization_code", "refresh_token"],
     "response_types": ["code"],
@@ -31,6 +31,6 @@ curl -fsS -X POST "$HYDRA_ADMIN/admin/clients" \
 echo ""
 echo "✓ Бүртгэгдлээ. Authorization URL жишээ:"
 echo ""
-echo "  http://localhost:4444/oauth2/auth?client_id=gerege-demo-rp&response_type=code&scope=openid%20profile&redirect_uri=http://localhost:8080/callback&state=demo123"
+echo "  http://localhost:4444/oauth2/auth?client_id=dan-demo-rp&response_type=code&scope=openid%20profile&redirect_uri=http://localhost:8080/callback&state=demo123"
 echo ""
-echo "  (login/consent provider буюу gerege-login :3000 ажиллаж эхэлмэгц энэ урсгал бүрэн болно.)"
+echo "  (login/consent provider буюу dan-login :3000 ажиллаж эхэлмэгц энэ урсгал бүрэн болно.)"

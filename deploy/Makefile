@@ -1,4 +1,4 @@
-# Гэрэгэ — локал орчны товч командууд
+# ДАН — локал орчны товч командууд
 .PHONY: up down logs ready client clean discovery
 
 up:            ## Орчныг асаах (Hydra + Postgres + Redis)

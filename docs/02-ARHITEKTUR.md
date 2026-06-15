@@ -1,4 +1,4 @@
-# 02 — Гэрэгэ системийн архитектур
+# 02 — ДАН системийн архитектур
 
 > TARA-гийн "стандарт цөм + үндэсний адаптер" загварыг Монголд буулгасан нь.
 
@@ -19,7 +19,7 @@
 ┌───────────────────────────────▼──────────────────────────────────┐
 │  ГЭРЭГЭ ЦӨМ                                                      │
 │  ┌────────────────────┐      ┌──────────────────────────────────┐ │
-│  │  Ory Hydra         │◀────▶│  Гэрэгэ-Login (Spring Boot)      │ │
+│  │  Ory Hydra         │◀────▶│  ДАН-Login (Spring Boot)      │ │
 │  │  (OIDC/OAuth2)     │login/│  ── Method Router ──             │ │
 │  │  токен, JWKS,      │consent  ├─ eID Handler                  │ │
 │  │  client бүртгэл    │      │  ├─ MobileID Handler  ← MVP      │ │
@@ -39,8 +39,8 @@
 ## 2.2. Модулиуд (Maven multi-module)
 
 ```
-gerege/
-├── gerege-login/              ← гол webapp (Spring Boot)
+dan/
+├── dan-login/              ← гол webapp (Spring Boot)
 │   ├── core/                  ← Hydra интеграц, login/consent урсгал
 │   ├── auth-api/              ← AuthenticationMethodHandler интерфейс
 │   ├── auth-mobileid/         ← Mobile-ID адаптер (MVP)
@@ -49,15 +49,15 @@ gerege/
 │   ├── auth-biometric/        ← Биометр адаптер (Монгол нэмэлт)
 │   ├── xroad-client/          ← ХУР (X-Road) клиент
 │   └── ui/                    ← Thymeleaf + JS, MN/EN орчуулга
-├── gerege-admin/              ← RP (үйлчилгээ) бүртгэлийн админ
-├── gerege-mock/               ← хөгжүүлэлтийн mock (TARA-Mock шиг)
+├── dan-admin/              ← RP (үйлчилгээ) бүртгэлийн админ
+├── dan-mock/               ← хөгжүүлэлтийн mock (TARA-Mock шиг)
 └── docs/
 ```
 
 **Зарчим:** `auth-api` нь нэг л интерфейс тодорхойлно — `AuthenticationMethodHandler`. Адаптер бүр үүнийг хэрэгжүүлнэ. Шинэ арга нэмэх = шинэ модуль бичих, цөмд хүрэхгүй. *(TARA-гийн нээлттэй/өргөтгөх загвар.)*
 
 > **Одоогийн MVP бодит бүтэц** (нэг Maven модуль, дараа нь дээрх олон модуль болгож
-> хуваана): `mn.gov.gerege` — гол интерфейс, төрлүүд; `.auth` — handler-ууд + registry;
+> хуваана): `mn.gov.dan` — гол интерфейс, төрлүүд; `.auth` — handler-ууд + registry;
 > `.registry` — ХУР клиент (`PersonRegistry`/`MockHurClient`); `.hydra` — `HydraAdminClient`;
 > `.web` — контроллер, `SessionStore` (Redis); `.audit` — `AuditLogger`.
 
@@ -66,7 +66,7 @@ gerege/
 ## 2.3. Гол интерфейс (бүх адаптерийн гэрээ)
 
 ```java
-// gerege-login/auth-api
+// dan-login/auth-api
 public interface AuthenticationMethodHandler {
 
     /** Энэ арга идэвхтэй эсэх, ямар LoA түвшин өгөх вэ */
@@ -98,7 +98,7 @@ public interface AuthenticationMethodHandler {
 
 > **Шийдэгдсэн:** Сесс хадгалалтыг **Redis**-ээр хийхээр сонгов. `SessionStore` нь
 > `StringRedisTemplate`-ээр JSON хадгалж, 5 минутын TTL-тэй (хаягдсан нэвтрэлт автоматаар
-> устах). Бодит хэрэгжүүлэлт: `gerege-login/.../web/SessionStore.java`.
+> устах). Бодит хэрэгжүүлэлт: `dan-login/.../web/SessionStore.java`.
 
 ---
 

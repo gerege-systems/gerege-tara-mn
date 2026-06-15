@@ -1,11 +1,14 @@
 MIT License
 
-Copyright (c) 2026 Gerege (Гэрэгэ) — Mongolian e-Government Authentication Project
+Copyright (c) 2026 Үндэсний Дата Төв (National Data Center) —
+DAN, Mongolian e-Government Authentication Service
 
 This project is derived from and inspired by the Republic of Estonia's TARA
 (Riigi Autentimisteenus) and GovSSO systems, originally published under the MIT
 License by the Information System Authority (RIA) of Estonia. We extend our
 deepest gratitude. See NOTICE.md for full attribution.
+
+Originally prototyped by Gerege Systems LLC. Powered by Gerege Systems LLC 2026.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

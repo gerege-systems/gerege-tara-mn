@@ -1,17 +1,17 @@
-# Гэрэгэ — Монголын төрийн нэгдсэн нэвтрэлтийн үйлчилгээ
+# ДАН — Монголын төрийн нэгдсэн нэвтрэлтийн үйлчилгээ
 
-> **Gerege** — National Authentication Service for Mongolian e-Government
+> **DAN** — National Authentication Service for Mongolian e-Government
 > *Эстонийн нээлттэй эхийн **TARA** (Riigi Autentimisteenus) системийг эх загвар болгон, Монголын төрийн дижитал дэд бүтцэд тохируулан хувилж бүтээсэн нээлттэй эхийн төсөл.*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Status: MVP working](https://img.shields.io/badge/status-MVP%20working-success.svg)](gerege-login/README.md)
+[![Status: MVP working](https://img.shields.io/badge/status-MVP%20working-success.svg)](dan-login/README.md)
 
-> **MVP ажиллаж байна:** Ory Hydra + `gerege-login` дээр **4 нэвтрэлтийн арга**
+> **MVP ажиллаж байна:** Ory Hydra + `dan-login` дээр **4 нэвтрэлтийн арга**
 > (Mobile-ID, eID, Smart-ID, Биометр — бүгд mock) end-to-end OIDC урсгалтай. ХУР
 > (X-Road) абстракци, **Redis сесс** (TTL), **аудит лог** (РД маск), 13 нэгж тест, CI.
 > `id_token`-д `sub` (РД), `name`, `loa`, `auth_method` claim зөв гарна.
 > Бүх аргын тест: `bash scripts/e2e-test.sh MOBILE_ID УУ00010101`.
-> Ажиллуулах: [`gerege-login/README.md`](gerege-login/README.md).
+> Ажиллуулах: [`dan-login/README.md`](dan-login/README.md).
 
 ---
 
@@ -35,9 +35,11 @@
 
 Монголын иргэн **нэг л удаа нэвтрээд** төрийн бүх цахим үйлчилгээнд (E-Mongolia, татвар, эрүүл мэнд, нийгмийн даатгал г.м.) аюулгүй хандах боломжийг олгох, нээлттэй эх, стандартад суурилсан **нэгдсэн баталгаажуулалтын (authentication) давхарга** бий болгох.
 
-## Гэрэгэ гэж юу вэ?
+## ДАН гэж юу вэ?
 
-**Гэрэгэ** (эртний Монголын паайз — итгэмжлэлийн алт/мөнгөн пайз) нь эзэмшигчдээ хаант улсын нэрийн өмнөөс зорчих, эрх мэдэл эдлэх **итгэмжлэлийн тэмдэг** байсан. Дижитал Гэрэгэ нь яг үүнчлэн иргэнд төрийн системд "Би хэн бэ" гэдгээ батлах итгэмжлэлийг олгоно.
+**ДАН** — Монголын төрийн **нэгдсэн нэвтрэлтийн систем**. Иргэн нэг л удаа баталгаажаад төрийн бүх цахим үйлчилгээнд аюулгүй хандах боломжийг олгох "итгэмжлэлийн тэмдэг"-ийн дижитал хувилбар: иргэн төрийн системд "Би хэн бэ" гэдгээ батална.
+
+> Энэхүү нээлттэй эх хэрэгжүүлэлтийг **Үндэсний Дата Төв**-д зориулан бүтээв. Анхны прототипийг **Gerege Systems LLC** боловсруулсан (доорх кредитийг үз).
 
 ## Дэмжих нэвтрэлтийн аргууд (зорилт)
 
@@ -46,13 +48,13 @@
 | Үндэсний eID карт | Estonian ID-card + Web eID | ҮДШ / чипт иргэний үнэмлэх |
 | Mobile-ID | SK Mobile-ID | Mobicom / Unitel / G-Mobile SIM-PKI **← MVP** |
 | Smart-ID / App | SK Smart-ID | Банк/E-Mongolia апп (QR, push) |
-| Биометр / Нүүр таниулалт | *(TARA-д байхгүй — Монгол нэмэлт)* | ХУР/ДАН биометр сан |
+| Биометр / Нүүр таниулалт | *(TARA-д байхгүй — Монгол нэмэлт)* | ХУР / үндэсний биометр сан |
 
 ## Архитектурын зарчим
 
 ```
                   ┌─────────────────────────────────────────┐
-   Иргэн ───▶     │   Гэрэгэ-Login (Spring Boot, Java 17)    │
+   Иргэн ───▶     │   ДАН-Login (Spring Boot, Java 17)    │
    (browser)      │   ── Монголын нэвтрэлтийн адаптерууд ──  │
                   └──────────────┬──────────────────────────┘
                                  │ login/consent
@@ -72,12 +74,18 @@
 | Файл | Агуулга |
 |------|---------|
 | [docs/01-TARA-SUDALGAA.md](docs/01-TARA-SUDALGAA.md) | Эх сурвалж TARA-гийн бүрэн судалгаа |
-| [docs/02-ARHITEKTUR.md](docs/02-ARHITEKTUR.md) | Гэрэгэ системийн архитектур |
+| [docs/02-ARHITEKTUR.md](docs/02-ARHITEKTUR.md) | ДАН системийн архитектур |
 | [docs/03-ZAM-MOR.md](docs/03-ZAM-MOR.md) | Хэрэгжүүлэлтийн зам мөр (roadmap) |
 | [docs/04-HUR-DAN-INTEGRATS.md](docs/04-HUR-DAN-INTEGRATS.md) | ХУР / ДАН / оператор холболт |
 | [docs/PLAN.md](docs/PLAN.md) | Нэгдсэн төлөвлөгөө |
 
-## Лиценз
+## Лиценз ба эзэмшил
 
 MIT — эх сурвалж TARA-гийн нээлттэй уламжлалыг хүндэтгэн, ижил чөлөөт лицензээр.
-[ӨРИЙН ХҮЛЭЭЛТ / NOTICE](NOTICE.md) файлд эх сурвалжийн зохиогчийн эрхийг тэмдэглэв.
+[NOTICE](NOTICE.md) файлд эх сурвалжийн зохиогчийн эрхийг тэмдэглэв.
+
+**Эзэмшигч:** Үндэсний Дата Төв.
+
+---
+
+<p align="center"><sub>Powered by Gerege Systems LLC 2026</sub></p>

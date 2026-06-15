@@ -20,7 +20,7 @@
 ## Үе шат 0 — Суурь (1-2 долоо хоног)
 
 - [ ] Repo, лиценз (MIT), `NOTICE.md` (эх сурвалжийн зохиогчийн эрх)
-- [ ] Maven multi-module скелет (`gerege-login`, `auth-api`, `auth-mobileid`, `gerege-mock`)
+- [ ] Maven multi-module скелет (`dan-login`, `auth-api`, `auth-mobileid`, `dan-mock`)
 - [ ] Docker Compose: **Ory Hydra** + Postgres + Redis локалд ажиллуулах
 - [ ] CI (GitHub Actions): build + test
 - [ ] TARA-Login-ийн кодыг **уншиж судлах** (хувилахаас өмнө ойлгох)
@@ -33,9 +33,9 @@
 
 - [ ] `AuthenticationMethodHandler` интерфейс тодорхойлох (`auth-api`)
 - [ ] Hydra login/consent урсгалыг хэрэгжүүлэх (`core`) — TARA-гаас хувилж тааруулах
-- [ ] `auth-mobileid`: эхлээд **`gerege-mock`-той** ажиллана (бодит оператор хараахан биш)
+- [ ] `auth-mobileid`: эхлээд **`dan-mock`-той** ажиллана (бодит оператор хараахан биш)
 - [ ] Арга сонгох UI (Thymeleaf, MN/EN)
-- [ ] End-to-end тест: жишиг RP → Гэрэгэ → mock Mobile-ID → id_token буцна
+- [ ] End-to-end тест: жишиг RP → ДАН → mock Mobile-ID → id_token буцна
 
 **Үр дүн:** Иргэн (mock) Mobile-ID-аар нэвтрээд жишиг үйлчилгээнд орно. **OIDC урсгал бүрэн батлагдсан.**
 
@@ -63,7 +63,7 @@
 
 ## Үе шат 4 — Production бэлэн байдал
 
-- [ ] `gerege-admin` — RP бүртгэлийн портал
+- [ ] `dan-admin` — RP бүртгэлийн портал
 - [ ] Helm chart, K8s deploy, HA (high availability)
 - [ ] Ачааллын тест, penetration test
 - [ ] Баримт бичиг бүрэн (интеграцийн заавар RP-нарт)
@@ -84,7 +84,7 @@
 
 ## Амжилтын хэмжүүр (MVP)
 
-1. Жишиг RP стандарт OIDC client-ээр Гэрэгэд холбогдоно
+1. Жишиг RP стандарт OIDC client-ээр ДАНд холбогдоно
 2. Иргэн нэг аргаар нэвтэрнэ, зөв `id_token` (РД, нэр, LoA) авна
 3. Бүх нэвтрэлт аудит логд бүртгэгдэнэ
 4. Гадны үйлчилгээ унахад circuit breaker ажиллана

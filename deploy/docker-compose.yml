@@ -1,13 +1,13 @@
-# Гэрэгэ — Локал хөгжүүлэлтийн орчин (Ory Hydra OIDC цөм)
+# ДАН — Локал хөгжүүлэлтийн орчин (Ory Hydra OIDC цөм)
 #
 # Эстонийн TARA-Login яг ийм бүтэцтэй: Hydra нь OIDC/OAuth2-г бүрэн хариуцаж,
-# нэвтрэлтийн UI-г login/consent provider (бидний gerege-login) руу чиглүүлдэг.
+# нэвтрэлтийн UI-г login/consent provider (бидний dan-login) руу чиглүүлдэг.
 #
 # Ажиллуулах:   cd deploy && docker compose up -d
 # Шалгах:       curl http://localhost:4444/.well-known/openid-configuration
 # Зогсоох:      docker compose down            (өгөгдөл устгах: docker compose down -v)
 
-name: gerege-dev
+name: dan-dev
 
 services:
   # ── 1. Хадгалалт: Hydra-гийн клиент, зөвшөөрөл, токен энд хадгалагдана ──────
@@ -65,18 +65,18 @@ services:
       retries: 10
     restart: unless-stopped
 
-  # ── 5. Гэрэгэ-login: нэвтрэлтийн webapp (Hydra login/consent provider) ─────
+  # ── 5. ДАН-login: нэвтрэлтийн webapp (Hydra login/consent provider) ─────
   #    Локал хөгжүүлэлтэд mvn spring-boot:run-ээр ажиллуулж болно; энэ service нь
   #    бүх стекийг контейнерт нэг дор асаах зориулалттай.
-  gerege-login:
-    build: ../gerege-login
+  dan-login:
+    build: ../dan-login
     ports:
       - "3000:3000"
     environment:
-      GEREGE_HYDRA_ADMIN_URL: http://hydra:4445
+      DAN_HYDRA_ADMIN_URL: http://hydra:4445
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      GEREGE_DEMO_TOKEN_URL: http://hydra:4444   # серверээс токен солих (сүлжээгээр)
+      DAN_DEMO_TOKEN_URL: http://hydra:4444   # серверээс токен солих (сүлжээгээр)
     depends_on:
       hydra:
         condition: service_healthy
@@ -84,14 +84,14 @@ services:
         condition: service_started
     restart: unless-stopped
 
-  # ── 6. Гэрэгэ-admin: үйлчилгээ (RP) бүртгэлийн портал ──────────────────────
+  # ── 6. ДАН-admin: үйлчилгээ (RP) бүртгэлийн портал ──────────────────────
   #    ⚠️ Hydra-гийн admin порт руу ханддаг — production-д дотоод сүлжээнд тусгаар.
-  gerege-admin:
-    build: ../gerege-admin
+  dan-admin:
+    build: ../dan-admin
     ports:
       - "4000:4000"
     environment:
-      GEREGE_HYDRA_ADMIN_URL: http://hydra:4445
+      DAN_HYDRA_ADMIN_URL: http://hydra:4445
     depends_on:
       hydra:
         condition: service_healthy

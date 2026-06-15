@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="mn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДАН — Алдаа</title>
+    <link rel="stylesheet" href="/dan.css">
+</head>
+<body>
+<div class="card">
+    <div class="brand">
+        <div class="logo" style="color:#9b1c1c;"><svg th:replace="~{fragments/icons :: alert}"></svg></div>
+        <h1>Алдаа гарлаа</h1>
+    </div>
+    <div class="error-box">
+        <b th:text="${error}">error</b>
+        <p th:text="${description}" style="margin:8px 0 0;">Тайлбар</p>
+    </div>
+    <div class="footer">
+        Эстони &rarr; Монгол · нээлттэй эхийн TARA системд суурилав<br><span style="opacity:.7;">Powered by Gerege Systems LLC 2026</span>
+    </div>
+</div>
+</body>
+</html>

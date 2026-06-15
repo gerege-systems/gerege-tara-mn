@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="mn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДАН — Шинэ үйлчилгээ</title>
+    <link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+<div class="topbar">
+    <span class="brand-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </span>
+    <h1>ДАН — Админ</h1>
+    <span class="sub">Шинэ үйлчилгээ бүртгэх</span>
+</div>
+
+<div class="wrap">
+    <div class="page-head">
+        <h2>Шинэ үйлчилгээ бүртгэх</h2>
+        <a class="btn secondary" href="/">
+            <svg width="16" height="16" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Буцах
+        </a>
+    </div>
+
+    <div class="banner error" th:if="${error}" th:text="${error}">алдаа</div>
+
+    <div class="form-card">
+        <form method="post" th:action="@{/clients}">
+            <label for="clientId">client_id <span class="hint">(латин үсэг, зураас — өвөрмөц)</span></label>
+            <input type="text" id="clientId" name="clientId" placeholder="e-mongolia-portal"
+                   th:value="${clientId}" required pattern="[a-z0-9\-]+"/>
+
+            <label for="clientName">Үйлчилгээний нэр</label>
+            <input type="text" id="clientName" name="clientName" placeholder="Е-Монгол портал"
+                   th:value="${clientName}" required/>
+
+            <label for="redirectUris">Redirect URI <span class="hint">(мөр болгонд нэг)</span></label>
+            <textarea id="redirectUris" name="redirectUris"
+                      placeholder="https://service.gov.mn/callback" th:text="${redirectUris}" required></textarea>
+
+            <div class="check">
+                <input type="checkbox" id="profileScope" name="profileScope" value="true" checked/>
+                <label for="profileScope" style="margin:0;font-weight:400;">
+                    Нэр, мэдээлэл авах (<span class="mono">profile</span> scope) — <span class="mono">openid</span> үргэлж идэвхтэй
+                </label>
+            </div>
+
+            <div class="actions">
+                <button class="btn" type="submit">
+                    <svg width="16" height="16" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                    Бүртгэх
+                </button>
+                <a class="btn secondary" href="/">Цуцлах</a>
+            </div>
+        </form>
+    </div>
+</div>
+<div style="text-align:center;color:#9aa3b2;font-size:11px;margin:28px 0;">ДАН · Үндэсний Дата Төв · <span style="opacity:.8;">Powered by Gerege Systems LLC 2026</span></div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="mn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДАН — Демо нэвтрэлт амжилттай</title>
+    <link rel="stylesheet" href="/dan.css">
+</head>
+<body>
+<div class="card" style="max-width:480px;">
+    <div class="brand">
+        <div class="logo" style="color:#1d6b3f;"><svg th:replace="~{fragments/icons :: user-check}"></svg></div>
+        <h1>Нэвтрэлт амжилттай</h1>
+        <div class="sub">Демо үйлчилгээнд таныг таниглаа</div>
+    </div>
+
+    <p class="muted" style="text-align:left;">
+        Жинхэнэ үйлчилгээ дараах мэдээллийг (<span class="mono">id_token</span>) ДАН-гээс
+        авна:
+    </p>
+
+    <div class="claims">
+        <div class="claim"><span class="k">Регистр (sub)</span><span class="v mono" th:text="${claims.sub}">—</span></div>
+        <div class="claim"><span class="k">Нэр</span><span class="v" th:text="${claims.name}">—</span></div>
+        <div class="claim"><span class="k">Итгэмжлэл (loa)</span><span class="v" th:text="${claims.loa}">—</span></div>
+        <div class="claim"><span class="k">Арга</span><span class="v" th:text="${claims.auth_method}">—</span></div>
+    </div>
+
+    <a class="primary-btn" href="/">Нүүр хуудас руу буцах</a>
+
+    <div class="footer">
+        Эстони &rarr; Монгол · нээлттэй эхийн TARA системд суурилав<br><span style="opacity:.7;">Powered by Gerege Systems LLC 2026</span>
+    </div>
+</div>
+</body>
+</html>

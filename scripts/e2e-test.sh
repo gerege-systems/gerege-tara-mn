@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Гэрэгэ — нэг аргын end-to-end OIDC тест.  Хэрэглээ: gerege-e2e.sh METHOD РД
+# ДАН — нэг аргын end-to-end OIDC тест.  Хэрэглээ: dan-e2e.sh METHOD РД
 set -uo pipefail
 METHOD="${1:-MOBILE_ID}"
 RD="${2:-УУ00010101}"
 
-JAR="/tmp/gerege-cookies-$METHOD.txt"; rm -f "$JAR"
+JAR="/tmp/dan-cookies-$METHOD.txt"; rm -f "$JAR"
 PUB=http://localhost:4444; APP=http://localhost:3000
-AUTH_URL="$PUB/oauth2/auth?client_id=gerege-demo-rp&response_type=code&scope=openid%20profile&redirect_uri=http://localhost:8080/callback&state=teststate12345&nonce=noncevalue123"
+AUTH_URL="$PUB/oauth2/auth?client_id=dan-demo-rp&response_type=code&scope=openid%20profile&redirect_uri=http://localhost:8080/callback&state=teststate12345&nonce=noncevalue123"
 hop() { curl -s -c "$JAR" -b "$JAR" -o /dev/null -w '%{redirect_url}' "$1"; }
 urldecode() { python3 -c "import urllib.parse,sys;print(urllib.parse.unquote(sys.argv[1]))" "$1"; }
 
@@ -40,7 +40,7 @@ loc4=$(hop "$loc3")                  # → RP callback
 code=$(echo "$loc4" | sed -n 's/.*[?&]code=\([^&]*\).*/\1/p')
 [ -z "$code" ] && { echo "✗ [$METHOD] code ирсэнгүй: $loc4"; exit 1; }
 
-tok=$(curl -s -u gerege-demo-rp:demo-secret-change-me -d grant_type=authorization_code -d "code=$code" \
+tok=$(curl -s -u dan-demo-rp:demo-secret-change-me -d grant_type=authorization_code -d "code=$code" \
   --data-urlencode "redirect_uri=http://localhost:8080/callback" "$PUB/oauth2/token")
 idt=$(echo "$tok" | sed -n 's/.*"id_token":"\([^"]*\)".*/\1/p')
 payload=$(echo "$idt" | cut -d. -f2); pad=$(( ${#payload} % 4 )); [ $pad -ne 0 ] && payload="$payload$(printf '=%.0s' $(seq 1 $((4-pad))))"
