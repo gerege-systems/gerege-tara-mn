@@ -10,9 +10,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  // Дээрээс доош шилжсэн цэнхэр gradient (давалгаат зураггүй)
-  background: linear-gradient(to bottom, #cfe1ff 0%, #e9f1ff 55%, #dbebff 100%);
+  // Дээрээс доош шилжсэн gradient (гэрэл/харанхуй сэдэвт нийцнэ)
+  background: var(--dan-bg);
   background-attachment: fixed;
+  transition: color .2s ease;
 }
 
 svg {

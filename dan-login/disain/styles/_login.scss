@@ -51,7 +51,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #fff;
+  background: var(--dan-surface);
   border: 1px solid var(--dan-border);
   border-radius: 22px;
   padding: 8px 14px;
@@ -64,7 +64,8 @@
   height: 38px;
   border-radius: 50%;
   border: 1px solid var(--dan-border);
-  background: #fff;
+  background: var(--dan-surface);
+  color: var(--dan-navy);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,8 +73,17 @@
   padding: 0;
   overflow: hidden;
 
-  &.dark { background: var(--dan-navy); color: #fff; border-color: var(--dan-navy); }
   img { width: 100%; height: 100%; object-fit: cover; }
+}
+
+// Гэрэл/харанхуй товч — moon/sun icon солих
+.theme-toggle {
+  .ico-sun { display: none; }
+  svg { width: 16px; height: 16px; }
+}
+[data-theme="dark"] .theme-toggle {
+  .ico-moon { display: none; }
+  .ico-sun { display: block; }
 }
 
 .sso-body {
@@ -94,7 +104,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--dan-tab-bg);
   border: 1.5px solid transparent;
   border-radius: 14px;
   padding: 14px 6px;
@@ -109,7 +119,7 @@
   svg { width: 22px; height: 22px; }
   &:hover { color: var(--dan-navy); }
   &.active {
-    background: #fff;
+    background: var(--dan-surface);
     border-color: var(--dan-blue);
     color: var(--dan-blue);
     box-shadow: 0 4px 14px rgba(47, 107, 255, .12);
@@ -203,7 +213,7 @@ input:focus { outline: none; }
   border: 1px solid var(--dan-border);
   border-radius: 12px;
   padding: 14px;
-  background: #fff;
+  background: var(--dan-surface);
   color: var(--dan-blue);
   font-size: 15px;
   font-weight: 700;

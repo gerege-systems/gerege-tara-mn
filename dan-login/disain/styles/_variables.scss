@@ -1,4 +1,4 @@
-// ДАН өнгөний систем — SCSS хувьсагч + CSS custom properties
+// ДАН өнгөний систем — SCSS хувьсагч + CSS custom properties (гэрэл/харанхуй)
 $dan-blue: #2f6bff;
 $dan-blue-d: #1f57e6;
 $dan-navy: #16306a;
@@ -8,6 +8,7 @@ $dan-border: #d8e3f5;
 $dan-input: #ffffff;
 $dan-chip: #e7eefc;
 
+// ── Гэрэл горим (default) ──
 :root {
   --dan-blue: #{$dan-blue};
   --dan-blue-d: #{$dan-blue-d};
@@ -16,6 +17,25 @@ $dan-chip: #e7eefc;
   --dan-muted: #{$dan-muted};
   --dan-border: #{$dan-border};
   --dan-card: rgba(255, 255, 255, 0.55);
+  --dan-surface: #ffffff;
   --dan-input: #{$dan-input};
   --dan-chip: #{$dan-chip};
+  --dan-tab-bg: rgba(255, 255, 255, 0.5);
+  --dan-bg: linear-gradient(to bottom, #cfe1ff 0%, #e9f1ff 55%, #dbebff 100%);
+}
+
+// ── Харанхуй горим ──
+[data-theme="dark"] {
+  --dan-blue: #5b8cff;
+  --dan-blue-d: #6f9cff;
+  --dan-navy: #e8eefb;
+  --dan-navy-soft: #b7c4de;
+  --dan-muted: #8493b0;
+  --dan-border: #2c3856;
+  --dan-card: rgba(26, 35, 56, 0.72);
+  --dan-surface: #1c2740;
+  --dan-input: #18223a;
+  --dan-chip: #26345a;
+  --dan-tab-bg: rgba(255, 255, 255, 0.04);
+  --dan-bg: linear-gradient(to bottom, #0d1524 0%, #111c30 55%, #0d1524 100%);
 }

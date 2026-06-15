@@ -1,7 +1,7 @@
 // Бусад хуудсууд: home / verify / error / demo-result (нэг карт төвд)
 
 .card {
-  background: rgba(255, 255, 255, 0.65);
+  background: var(--dan-card);
   backdrop-filter: blur(14px);
   width: 100%;
   max-width: 440px;
