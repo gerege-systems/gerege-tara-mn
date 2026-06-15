@@ -81,10 +81,11 @@ public class LoginController {
         sessions.save(session);
         log.info("{} эхэллээ: sessionId={}, controlCode={}", method, session.sessionId(), session.controlCode());
 
+        MethodView view = MethodView.of(method);
         model.addAttribute("sessionId", session.sessionId());
         model.addAttribute("controlCode", session.controlCode());
-        model.addAttribute("methodLabel", MethodView.of(method).label());
-        model.addAttribute("methodIcon", MethodView.of(method).icon());
+        model.addAttribute("methodLabel", view.label());
+        model.addAttribute("methodIconName", view.iconName());
         return "verify";
     }
 

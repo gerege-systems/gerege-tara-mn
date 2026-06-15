@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--
+  Флат SVG icon-уудын сан (emoji ашиглахгүй).
+  Хэрэглээ: <svg th:replace="~{fragments/icons :: __${iconName}__}"></svg>
+  Бүгд stroke-based (currentColor), Feather төрлийн флат хэв маяг.
+-->
+<body>
+
+<svg th:fragment="shield" width="40" height="40" viewBox="0 0 24 24">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+</svg>
+
+<svg th:fragment="smartphone" width="24" height="24" viewBox="0 0 24 24">
+    <rect x="5" y="2" width="14" height="20" rx="2"/>
+    <line x1="12" y1="18" x2="12.01" y2="18"/>
+</svg>
+
+<svg th:fragment="card" width="24" height="24" viewBox="0 0 24 24">
+    <rect x="1" y="4" width="22" height="16" rx="2"/>
+    <line x1="1" y1="10" x2="23" y2="10"/>
+</svg>
+
+<svg th:fragment="grid" width="24" height="24" viewBox="0 0 24 24">
+    <rect x="3" y="3" width="7" height="7"/>
+    <rect x="14" y="3" width="7" height="7"/>
+    <rect x="14" y="14" width="7" height="7"/>
+    <rect x="3" y="14" width="7" height="7"/>
+</svg>
+
+<svg th:fragment="face" width="24" height="24" viewBox="0 0 24 24">
+    <circle cx="12" cy="9" r="4"/>
+    <path d="M6 20.5a6 6 0 0 1 12 0"/>
+</svg>
+
+<svg th:fragment="alert" width="40" height="40" viewBox="0 0 24 24">
+    <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+    <line x1="12" y1="9" x2="12" y2="13"/>
+    <line x1="12" y1="17" x2="12.01" y2="17"/>
+</svg>
+
+</body>
+</html>

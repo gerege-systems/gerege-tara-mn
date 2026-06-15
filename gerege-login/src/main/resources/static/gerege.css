@@ -36,8 +36,18 @@ body {
 }
 
 .brand .logo {
-    font-size: 40px;
-    line-height: 1;
+    display: flex;
+    justify-content: center;
+    color: var(--gerege-navy);
+    margin-bottom: 4px;
+}
+
+svg {
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .brand h1 {
@@ -125,7 +135,7 @@ button:hover { background: #102f57; }
     cursor: not-allowed;
 }
 
-.method .icon { font-size: 22px; }
+.method .icon { display: flex; color: var(--gerege-navy); }
 
 .method .badge {
     margin-left: auto;

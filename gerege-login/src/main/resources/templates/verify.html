@@ -9,7 +9,7 @@
 <body>
 <div class="card">
     <div class="brand">
-        <div class="logo" th:text="${methodIcon}">📱</div>
+        <div class="logo"><svg th:replace="~{fragments/icons :: __${methodIconName}__}"></svg></div>
         <h1 th:text="${methodLabel}">Нэвтрэлт</h1>
         <div class="sub">Баталгаажуулж байна</div>
     </div>
@@ -26,7 +26,7 @@
     </p>
 
     <div class="footer">
-        🇪🇪 → 🇲🇳 Эстонийн нээлттэй эхийн TARA системд суурилав
+        Эстони &rarr; Монгол · нээлттэй эхийн TARA системд суурилав
     </div>
 </div>
 

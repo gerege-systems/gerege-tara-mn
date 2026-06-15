@@ -4,17 +4,19 @@ import mn.gov.gerege.AuthMethod;
 import mn.gov.gerege.LevelOfAssurance;
 
 /**
- * Нэвтрэлтийн аргыг хуудсанд харуулах загвар (нэр, дүрс, LoA).
+ * Нэвтрэлтийн аргыг хуудсанд харуулах загвар.
+ *
+ * @param iconName флат SVG icon-ийн фрагмент нэр (templates/fragments/icons.html)
  */
-public record MethodView(String name, String label, String icon, String loa, boolean needsPhone) {
+public record MethodView(String name, String label, String iconName, String loa, boolean needsPhone) {
 
     public static MethodView of(AuthMethod method) {
         String loa = LevelOfAssurance.forMethod(method).name();
         return switch (method) {
-            case MOBILE_ID -> new MethodView(method.name(), "Mobile-ID", "📱", loa, true);
-            case EID_CARD  -> new MethodView(method.name(), "e-Иргэний үнэмлэх", "🪪", loa, false);
-            case SMART_ID  -> new MethodView(method.name(), "Smart-ID / Апп", "📲", loa, false);
-            case BIOMETRIC -> new MethodView(method.name(), "Нүүр таниулалт", "🙂", loa, false);
+            case MOBILE_ID -> new MethodView(method.name(), "Mobile-ID", "smartphone", loa, true);
+            case EID_CARD  -> new MethodView(method.name(), "e-Иргэний үнэмлэх", "card", loa, false);
+            case SMART_ID  -> new MethodView(method.name(), "Smart-ID / Апп", "grid", loa, false);
+            case BIOMETRIC -> new MethodView(method.name(), "Нүүр таниулалт", "face", loa, false);
         };
     }
 }

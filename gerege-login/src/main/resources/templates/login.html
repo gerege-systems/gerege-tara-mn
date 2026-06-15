@@ -9,7 +9,7 @@
 <body>
 <div class="card">
     <div class="brand">
-        <div class="logo">🪪</div>
+        <div class="logo"><svg th:replace="~{fragments/icons :: shield}"></svg></div>
         <h1>Гэрэгэ</h1>
         <div class="sub">Монголын төрийн нэгдсэн нэвтрэлт</div>
     </div>
@@ -24,7 +24,7 @@
         <div class="methods">
             <label class="method active" th:each="m, it : ${methods}">
                 <input type="radio" name="method" th:value="${m.name}" th:checked="${it.index == 0}"/>
-                <span class="icon" th:text="${m.icon}">📱</span>
+                <span class="icon"><svg th:replace="~{fragments/icons :: __${m.iconName}__}"></svg></span>
                 <span th:text="${m.label}">Арга</span>
                 <span class="badge" th:text="${m.loa}">LOA</span>
             </label>
@@ -41,7 +41,7 @@
     </form>
 
     <div class="footer">
-        🇪🇪 → 🇲🇳 Эстонийн нээлттэй эхийн TARA системд суурилав
+        Эстони &rarr; Монгол · нээлттэй эхийн TARA системд суурилав
     </div>
 </div>
 </body>
