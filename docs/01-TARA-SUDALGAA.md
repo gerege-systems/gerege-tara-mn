@@ -11,7 +11,7 @@
 
 **Хэмжээ (магтууштай үр дүн):** 112 байгууллагын **582 мэдээллийн систем** TARA-д холбогдсон — татварын алба, тээврийн агентлаг, төрийн порталууд гэх мэт.
 
-📎 [RIA — Central authentication services](https://www.ria.ee/en/state-information-system/electronic-identity-eid-and-trust-services/central-authentication-services)
+[RIA — Central authentication services](https://www.ria.ee/en/state-information-system/electronic-identity-eid-and-trust-services/central-authentication-services)
 
 ---
 
@@ -62,7 +62,7 @@ TARA-Login-д арга бүр өөрийн handler-тай, гэхдээ бүгд
 4. **eIDAS** — ЕХ хооронд хил дамнасан нэвтрэлт (eIDAS-Node)
 5. **Legal Person** — бизнес регистрийн нэвтрэлт (X-Road-аар)
 
-📎 Дэлгэрэнгүй: [TechnicalSpecification](https://e-gov.github.io/TARA-Doku/TechnicalSpecification)
+Дэлгэрэнгүй: [TechnicalSpecification](https://e-gov.github.io/TARA-Doku/TechnicalSpecification)
 
 ---
 
@@ -102,14 +102,14 @@ RP (үйлчилгээ)                Hydra              Гэрэгэ-Login    
 
 | TARA хэсэг | Хадгалах уу? | Монгол дахь өөрчлөлт |
 |------------|:---:|----------------------|
-| Ory Hydra (OIDC цөм) | ✅ Яг хэвээр | Өөрчлөлтгүй |
-| Login/consent урсгал | ✅ Яг хэвээр | Орчуулга (MN/EN), UI брэндинг |
-| `AuthMethodHandler` интерфейс | ✅ Хэвээр | Шинэ адаптерууд залгана |
-| ID-card handler | 🔧 Адаптер | ҮДШ/чипт үнэмлэх + PKI |
-| Mobile-ID handler | 🔧 Адаптер | Оператор SIM-PKI (Mobicom г.м.) |
-| Smart-ID handler | 🔧 Адаптер | Банк/E-Mongolia апп |
-| eIDAS handler | ❌ Хасах | Монголд хамаарахгүй (ЕХ бус) |
-| X-Road холболт | ✅ Хэвээр | ХУР систем (мөн X-Road суурьтай!) |
-| Биометр | ➕ Шинэ | TARA-д байхгүй — Монгол нэмэлт |
+| Ory Hydra (OIDC цөм) | Яг хэвээр | Өөрчлөлтгүй |
+| Login/consent урсгал | Яг хэвээр | Орчуулга (MN/EN), UI брэндинг |
+| `AuthMethodHandler` интерфейс | Хэвээр | Шинэ адаптерууд залгана |
+| ID-card handler | Адаптер | ҮДШ/чипт үнэмлэх + PKI |
+| Mobile-ID handler | Адаптер | Оператор SIM-PKI (Mobicom г.м.) |
+| Smart-ID handler | Адаптер | Банк/E-Mongolia апп |
+| eIDAS handler | Хасах | Монголд хамаарахгүй (ЕХ бус) |
+| X-Road холболт | Хэвээр | ХУР систем (мөн X-Road суурьтай!) |
+| Биометр | Шинэ | TARA-д байхгүй — Монгол нэмэлт |
 
-> 💡 **Азтай давхцал:** Монголын **ХУР** систем нь Эстонийн X-Road технологид суурилсан тул TARA-гийн өгөгдөл солилцооны загвар бараг шууд буудаг.
+> **Азтай давхцал:** Монголын **ХУР** систем нь Эстонийн X-Road технологид суурилсан тул TARA-гийн өгөгдөл солилцооны загвар бараг шууд буудаг.
