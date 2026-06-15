@@ -14,8 +14,8 @@ spring:
 # Гэрэгэ-н тохиргоо
 gerege:
   hydra:
-    # Hydra-гийн ADMIN порт (docker compose-д :4445). Production-д дотоод хаяг.
-    admin-url: http://localhost:4445
+    # Hydra-гийн ADMIN порт. Локал: localhost:4445; контейнерт: http://hydra:4445
+    admin-url: ${GEREGE_HYDRA_ADMIN_URL:http://localhost:4445}
 
 management:
   endpoints:

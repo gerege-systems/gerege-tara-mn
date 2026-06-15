@@ -65,5 +65,23 @@ services:
       retries: 10
     restart: unless-stopped
 
+  # ── 5. Гэрэгэ-login: нэвтрэлтийн webapp (Hydra login/consent provider) ─────
+  #    Локал хөгжүүлэлтэд mvn spring-boot:run-ээр ажиллуулж болно; энэ service нь
+  #    бүх стекийг контейнерт нэг дор асаах зориулалттай.
+  gerege-login:
+    build: ../gerege-login
+    ports:
+      - "3000:3000"
+    environment:
+      GEREGE_HYDRA_ADMIN_URL: http://hydra:4445
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      hydra:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: unless-stopped
+
 volumes:
   hydra-postgres:
