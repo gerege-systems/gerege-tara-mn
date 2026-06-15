@@ -5,6 +5,7 @@ import mn.gov.gerege.AuthRequest;
 import mn.gov.gerege.AuthResult;
 import mn.gov.gerege.AuthSession;
 import mn.gov.gerege.AuthenticationMethodHandler;
+import mn.gov.gerege.audit.AuditLogger;
 import mn.gov.gerege.auth.AuthenticationMethodRegistry;
 import mn.gov.gerege.hydra.HydraAdminClient;
 import org.slf4j.Logger;
@@ -39,11 +40,14 @@ public class LoginController {
     private final HydraAdminClient hydra;
     private final AuthenticationMethodRegistry methods;
     private final SessionStore sessions;
+    private final AuditLogger audit;
 
-    public LoginController(HydraAdminClient hydra, AuthenticationMethodRegistry methods, SessionStore sessions) {
+    public LoginController(HydraAdminClient hydra, AuthenticationMethodRegistry methods,
+                           SessionStore sessions, AuditLogger audit) {
         this.hydra = hydra;
         this.methods = methods;
         this.sessions = sessions;
+        this.audit = audit;
     }
 
     /** 1-р алхам: боломжит аргуудтай нэвтрэх хуудсыг харуулах. */
@@ -101,6 +105,7 @@ public class LoginController {
         }
         if (result.status() == AuthResult.Status.FAILED) {
             sessions.remove(sessionId);
+            audit.authenticationFailed(session.method(), "registry-or-verification-failed");
             return Map.of("status", "FAILED");
         }
 
@@ -116,7 +121,8 @@ public class LoginController {
 
         String redirectTo = hydra.acceptLogin(session.loginChallenge(), result.subject(), context);
         sessions.remove(sessionId);
-        log.info("Нэвтрэлт амжилттай: subject={}, method={}, loa={}", result.subject(), session.method(), result.loa());
+        audit.authenticationSucceeded(result.subject(), session.method(), result.loa());
+        log.info("Нэвтрэлт амжилттай: method={}, loa={}", session.method(), result.loa());
 
         return Map.of("status", "SUCCESS", "redirectTo", redirectTo);
     }
