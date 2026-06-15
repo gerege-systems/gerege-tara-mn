@@ -23,7 +23,7 @@ curl -fsS -X POST "$HYDRA_ADMIN/admin/clients" \
     "grant_types": ["authorization_code", "refresh_token"],
     "response_types": ["code"],
     "scope": "openid profile",
-    "redirect_uris": ["http://localhost:8080/callback", "http://localhost:3000/callback"],
+    "redirect_uris": ["http://localhost:8080/callback", "http://localhost:3000/callback", "http://localhost:3000/demo/callback"],
     "post_logout_redirect_uris": ["http://localhost:8080/"],
     "token_endpoint_auth_method": "client_secret_basic"
   }' | jq '{client_id, client_name, scope, redirect_uris}'

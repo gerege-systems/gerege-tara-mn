@@ -76,6 +76,7 @@ services:
       GEREGE_HYDRA_ADMIN_URL: http://hydra:4445
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      GEREGE_DEMO_TOKEN_URL: http://hydra:4444   # серверээс токен солих (сүлжээгээр)
     depends_on:
       hydra:
         condition: service_healthy

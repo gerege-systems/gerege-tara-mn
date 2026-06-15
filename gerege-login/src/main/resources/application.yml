@@ -16,6 +16,13 @@ gerege:
   hydra:
     # Hydra-гийн ADMIN порт. Локал: localhost:4445; контейнерт: http://hydra:4445
     admin-url: ${GEREGE_HYDRA_ADMIN_URL:http://localhost:4445}
+  # Демо нэвтрэлтийн урсгал (зөвхөн үзүүлбэр; production-д хасна)
+  demo:
+    issuer-public: ${GEREGE_DEMO_ISSUER:http://localhost:4444}   # браузерт харагдах Hydra public
+    token-url: ${GEREGE_DEMO_TOKEN_URL:http://localhost:4444}     # серверээс токен солих (контейнерт http://hydra:4444)
+    client-id: gerege-demo-rp
+    client-secret: demo-secret-change-me
+    redirect-uri: ${GEREGE_DEMO_REDIRECT:http://localhost:3000/demo/callback}
 
 management:
   endpoints:

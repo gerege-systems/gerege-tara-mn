@@ -184,3 +184,54 @@ button:hover { background: #102f57; }
     padding: 14px;
     font-size: 14px;
 }
+
+.mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+.info-list { margin: 20px 0; }
+.info-row { display: flex; align-items: center; gap: 10px; font-size: 14px; margin: 10px 0; }
+.info-row .ok { display: flex; color: #1d6b3f; flex-shrink: 0; }
+
+.primary-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 8px;
+    padding: 13px;
+    background: var(--gerege-navy);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.primary-btn:hover { background: #102f57; }
+
+.links-row {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 16px;
+}
+.links-row a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--gerege-muted);
+    font-size: 13px;
+    text-decoration: none;
+}
+.links-row a:hover { color: var(--gerege-navy); }
+
+.claims { margin: 18px 0; }
+.claim {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--gerege-border);
+    font-size: 14px;
+}
+.claim .k { color: var(--gerege-muted); }
+.claim .v { font-weight: 600; color: var(--gerege-navy); }
