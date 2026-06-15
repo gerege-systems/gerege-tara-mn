@@ -10,25 +10,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(160deg, #cfe1ff 0%, #e6f0ff 45%, #dbebff 100%);
-}
-
-// Давалгаат дэвсгэр (login)
-.wave {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  background: linear-gradient(160deg, #cfe1ff 0%, #e9f1ff 50%, #d7e8ff 100%);
-
-  svg {
-    position: absolute;
-    width: 130%;
-    height: 130%;
-    top: -15%;
-    left: -15%;
-    opacity: .8;
-  }
+  // Дээрээс доош шилжсэн цэнхэр gradient (давалгаат зураггүй)
+  background: linear-gradient(to bottom, #cfe1ff 0%, #e9f1ff 55%, #dbebff 100%);
+  background-attachment: fixed;
 }
 
 svg {
