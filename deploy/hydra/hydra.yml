@@ -1,0 +1,51 @@
+# Ory Hydra тохиргоо — Гэрэгэ локал орчин
+# Лавлах: https://www.ory.sh/docs/hydra/reference/configuration
+#
+# ⚠️ Энэ нь ЗӨВХӨН хөгжүүлэлтийн тохиргоо. Production-д нууц түлхүүр, issuer URL,
+#    TLS-ийг заавал солино.
+
+serve:
+  cookies:
+    same_site_mode: Lax
+  public:
+    cors:
+      enabled: true
+      allowed_origins:
+        - "*"
+
+urls:
+  self:
+    # Иргэн/үйлчилгээ Hydra-г энэ хаягаар "танина" (issuer claim)
+    issuer: http://localhost:4444
+  # ↓↓↓ Эдгээр нь бидний gerege-login webapp руу чиглүүлнэ (одоогоор :3000) ↓↓↓
+  login: http://localhost:3000/auth/login
+  consent: http://localhost:3000/auth/consent
+  logout: http://localhost:3000/auth/logout
+  error: http://localhost:3000/auth/error
+
+oidc:
+  subject_identifiers:
+    supported_types:
+      - public
+      - pairwise
+    pairwise:
+      # Иргэний РД-ийг үйлчилгээ бүрд өөр өөр sub болгож нуух давс (privacy)
+      salt: dev-only-change-me-in-production
+
+strategies:
+  access_token: opaque
+
+# Токен амьдрах хугацаа (TARA-гийн богино сесстэй ойролцоо)
+ttl:
+  access_token: 15m
+  refresh_token: 24h
+  id_token: 15m
+  auth_code: 10m
+
+secrets:
+  system:
+    - dev-only-system-secret-change-me
+
+log:
+  level: debug
+  format: text

@@ -1,0 +1,31 @@
+# Java / Maven
+target/
+*.class
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/timing.properties
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Орчны нууцууд (хэзээ ч commit хийхгүй)
+.env
+.env.local
+*.local.yml
+secrets/
+
+# Логууд
+*.log
+logs/
+
+# Docker volume өгөгдөл (хэрэв локалд mount хийвэл)
+deploy/data/
