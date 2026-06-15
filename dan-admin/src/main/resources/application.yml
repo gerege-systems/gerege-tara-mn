@@ -1,5 +1,8 @@
 server:
   port: 4000
+  servlet:
+    context-path: /admin          # бүх зам /admin/* дор — Caddy ингэж route хийнэ
+  forward-headers-strategy: framework   # Caddy-ийн X-Forwarded-* -ийг уншина (https redirect, Secure cookie)
 
 spring:
   application:
@@ -10,6 +13,9 @@ spring:
 dan:
   hydra:
     admin-url: ${DAN_HYDRA_ADMIN_URL:http://localhost:4445}
+  admin:
+    user: ${DAN_ADMIN_USER:admin}
+    password: ${DAN_ADMIN_PASSWORD:admin}   # production-д env-ээр хүчтэй утга
 
 management:
   endpoints:

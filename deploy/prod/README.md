@@ -33,14 +33,11 @@ curl -s https://dan.dgov.mn/.well-known/openid-configuration | jq .issuer
 | Зам | Зорилт |
 |-----|--------|
 | `/oauth2/*`, `/.well-known/*`, `/userinfo` | Hydra public (OIDC цөм) |
+| `/admin`, `/admin/*` | dan-admin (RP бүртгэл, **нэвтрэлтийн ард**) |
 | бусад бүх зам (`/`, `/auth/*`, `/demo/*`) | dan-login |
-| `dan-admin` (RP бүртгэл) | **public-д ил гарахгүй** — SSH tunnel-ээр |
 
-Админд хандах (SSH tunnel):
-```bash
-ssh -L 4000:dan-admin:4000 root@<server>   # дараа нь http://localhost:4000
-# (эсвэл сервер дээр: docker compose exec ... / порт нийтлэх)
-```
+Админд хандах: **https://dan.dgov.mn/admin** → `.env`-д заасан `DAN_ADMIN_USER` /
+`DAN_ADMIN_PASSWORD`-оор нэвтэрнэ (Spring Security form login).
 
 ## ⚠️ Хатууруулах (жинхэнэ production)
 - Hydra-г `--dev`-гүй, TLS termination зөвшөөрлөөр ажиллуулах

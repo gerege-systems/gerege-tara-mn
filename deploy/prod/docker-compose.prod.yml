@@ -75,11 +75,13 @@ services:
         condition: service_started
     restart: unless-stopped
 
-  # Админ портал — public-д ИЛ ГАРГАХГҮЙ (Caddy route байхгүй). SSH tunnel-ээр хандана.
+  # Админ портал — нэвтрэлтийн ард https://dan.dgov.mn/admin дээр ил гарна.
   dan-admin:
     build: ../../dan-admin
     environment:
       DAN_HYDRA_ADMIN_URL: http://hydra:4445
+      DAN_ADMIN_USER: ${DAN_ADMIN_USER}
+      DAN_ADMIN_PASSWORD: ${DAN_ADMIN_PASSWORD}
     depends_on:
       hydra:
         condition: service_healthy
