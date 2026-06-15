@@ -21,7 +21,9 @@ gerege:
     issuer-public: ${GEREGE_DEMO_ISSUER:http://localhost:4444}   # браузерт харагдах Hydra public
     token-url: ${GEREGE_DEMO_TOKEN_URL:http://localhost:4444}     # серверээс токен солих (контейнерт http://hydra:4444)
     client-id: gerege-demo-rp
-    client-secret: demo-secret-change-me
+    # Демо RP-ийн нийтэд мэдэгдэх нууц (register-client.sh-тэй ижил). Зөвхөн локал
+    # демод хүчинтэй; production-д энэ демо хэсгийг бүхэлд нь хасна. Env-ээр дарна.
+    client-secret: ${GEREGE_DEMO_CLIENT_SECRET:demo-secret-change-me}
     redirect-uri: ${GEREGE_DEMO_REDIRECT:http://localhost:3000/demo/callback}
 
 management:

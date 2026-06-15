@@ -1,6 +1,7 @@
 package mn.gov.gerege.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -60,9 +61,11 @@ public class HomeController {
 
     /** Демо нэвтрэлт эхлүүлэх — браузерыг Hydra-гийн authorize руу чиглүүлнэ. */
     @GetMapping("/demo/start")
-    public String demoStart() {
+    public String demoStart(HttpSession session) {
         String state = UUID.randomUUID().toString().replace("-", "");
         String nonce = UUID.randomUUID().toString().replace("-", "");
+        // CSRF хамгаалалт: state-ийг сесст хадгалж, callback дээр тулгана.
+        session.setAttribute("demo_oauth_state", state);
         String authorizeUrl = UriComponentsBuilder.fromHttpUrl(issuerPublic + "/oauth2/auth")
                 .queryParam("client_id", clientId)
                 .queryParam("response_type", "code")
@@ -79,11 +82,22 @@ public class HomeController {
     /** Демо callback — кодыг токен болгож солиод id_token-ий мэдээллийг харуулна. */
     @GetMapping("/demo/callback")
     public String demoCallback(@RequestParam(value = "code", required = false) String code,
+                               @RequestParam(value = "state", required = false) String state,
                                @RequestParam(value = "error", required = false) String error,
+                               HttpSession session,
                                Model model) {
         if (error != null || code == null) {
             model.addAttribute("error", error != null ? error : "no-code");
             model.addAttribute("description", "Нэвтрэлт цуцлагдсан эсвэл код ирээгүй.");
+            return "error";
+        }
+
+        // CSRF шалгалт: callback-ийн state нь эхлүүлэхэд хадгалсантай тохирох ёстой.
+        Object expectedState = session.getAttribute("demo_oauth_state");
+        session.removeAttribute("demo_oauth_state");   // нэг удаагийн — дахин ашиглахгүй
+        if (expectedState == null || !expectedState.equals(state)) {
+            model.addAttribute("error", "invalid_state");
+            model.addAttribute("description", "State тохирохгүй байна (CSRF хамгаалалт).");
             return "error";
         }
 
