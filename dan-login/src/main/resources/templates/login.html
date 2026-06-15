@@ -3,46 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ДАН — Нэвтрэх</title>
+    <title>ДАН | Танилт нэвтрэлтийн систем</title>
     <link rel="stylesheet" href="/dan.css">
+    <style>
+        .dan-word { font-size: 30px; font-weight: 900; letter-spacing: 1px; color: var(--dan-blue); line-height: 1; }
+        .dan-word .a { display: inline-block; transform: scaleX(.92); }
+    </style>
 </head>
 <body>
-<div class="card">
-    <div class="brand">
-        <div class="logo"><svg th:replace="~{fragments/icons :: shield}"></svg></div>
-        <h1>ДАН</h1>
-        <div class="sub">Монголын төрийн нэгдсэн нэвтрэлт</div>
-    </div>
+<!-- Давалгаат дэвсгэр -->
+<div class="wave">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,260 C400,120 760,360 1100,240 C1300,170 1380,300 1440,250 L1440,0 L0,0 Z" fill="#ffffff" opacity="0.35"/>
+        <path d="M0,520 C320,360 720,640 1080,500 C1280,420 1380,560 1440,520 L1440,900 L0,900 Z" fill="#ffffff" opacity="0.45"/>
+        <path d="M0,700 C360,560 760,820 1140,680 C1300,620 1390,720 1440,690 L1440,900 L0,900 Z" fill="#cfe2ff" opacity="0.5"/>
+    </svg>
+</div>
 
-    <div class="client-banner">
-        <b th:text="${clientName}">Үйлчилгээ</b> танаас нэвтрэхийг хүсэж байна
-    </div>
-
-    <form method="post" th:action="@{/auth/login}">
-        <input type="hidden" name="login_challenge" th:value="${loginChallenge}"/>
-
-        <div class="methods">
-            <label class="method active" th:each="m, it : ${methods}">
-                <input type="radio" name="method" th:value="${m.name}" th:checked="${it.index == 0}"/>
-                <span class="icon"><svg th:replace="~{fragments/icons :: __${m.iconName}__}"></svg></span>
-                <span th:text="${m.label}">Арга</span>
-                <span class="badge" th:text="${m.loa}">LOA</span>
-            </label>
+<div class="sso-page">
+    <div class="sso-card">
+        <!-- Толгой -->
+        <div class="sso-head">
+            <div class="sso-brand">
+                <span class="dan-word">D<span class="a">A</span>N</span>
+                <span class="sso-brand-text">ҮНДЭСНИЙ ТАНИЛТ<br>НЭВТРЭЛТИЙН СИСТЕМ</span>
+            </div>
+            <div class="head-controls">
+                <div class="lang-pill">
+                    <svg width="18" height="12" viewBox="0 0 18 12"><rect width="6" height="12" fill="#c4272e"/><rect x="6" width="6" height="12" fill="#015197"/><rect x="12" width="6" height="12" fill="#c4272e"/></svg>
+                    МУ-ын иргэн
+                    <svg width="12" height="12" viewBox="0 0 24 24" style="stroke:var(--dan-navy)"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <button class="circle-btn" type="button" title="English" style="font-size:12px;font-weight:700;color:var(--dan-navy)">EN</button>
+                <button class="circle-btn dark" type="button" title="Харанхуй горим">
+                    <svg width="16" height="16" viewBox="0 0 24 24" style="stroke:#fff"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+            </div>
         </div>
 
-        <label for="personalCode">Регистрийн дугаар (РД)</label>
-        <input type="text" id="personalCode" name="personalCode"
-               placeholder="УУ00010101" required autofocus/>
+        <!-- Их бие -->
+        <div class="sso-body">
+            <!-- Зүүн: маягт -->
+            <div class="sso-form">
+                <div class="tabs">
+                    <button type="button" class="tab active" data-method="MOBILE_ID" onclick="pickTab(this)">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2"/><line x1="13" y1="11" x2="18" y2="11"/><line x1="13" y1="14" x2="16" y2="14"/></svg>
+                        Нэг удаагийн код
+                    </button>
+                    <button type="button" class="tab" data-method="SMART_ID" onclick="pickTab(this)">
+                        <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><line x1="9" y1="21" x2="9" y2="14"/><line x1="15" y1="21" x2="15" y2="14"/></svg>
+                        Банкны эрх
+                    </button>
+                    <button type="button" class="tab" data-method="EID_CARD" onclick="pickTab(this)">
+                        <svg viewBox="0 0 24 24"><path d="M3 17c3-4 6 2 9-1s5-4 9-2"/><path d="M12 20l8-8"/><path d="M16 4l4 4"/></svg>
+                        Тоон гарын үсэг
+                    </button>
+                </div>
 
-        <label for="phoneNumber">Утасны дугаар <span class="muted">(Mobile-ID-д)</span></label>
-        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="99112233"/>
+                <form id="loginForm" method="post" th:action="@{/auth/login}" onsubmit="return prepare()">
+                    <input type="hidden" name="login_challenge" th:value="${loginChallenge}"/>
+                    <input type="hidden" name="method" id="method" value="MOBILE_ID"/>
+                    <input type="hidden" name="personalCode" id="personalCode"/>
 
-        <button type="submit">Нэвтрэх</button>
-    </form>
+                    <div class="subtabs">
+                        <span class="subtab active">Регистрийн дугаар</span>
+                        <span class="subtab">Иргэний бүртгэлийн дугаар</span>
+                    </div>
 
-    <div class="footer">
-        Эстони &rarr; Монгол · нээлттэй эхийн TARA системд суурилав<br><span style="opacity:.7;">Powered by Gerege Systems LLC 2026</span>
+                    <div class="rd-row">
+                        <input class="rd-letter" id="rdL1" maxlength="1" placeholder="Р" autocomplete="off"/>
+                        <input class="rd-letter" id="rdL2" maxlength="1" placeholder="Д" autocomplete="off"/>
+                        <input class="rd-num" id="rdNum" placeholder="Регистрийн дугаар" inputmode="numeric" required/>
+                    </div>
+
+                    <div class="label-row">
+                        <label for="pw">Нууц үг</label>
+                        <a class="forgot" href="#">Нууц үгээ мартсан уу?</a>
+                    </div>
+                    <div class="pw-input">
+                        <svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                        <input type="password" id="pw" placeholder="Нууц үг"/>
+                        <svg class="eye" viewBox="0 0 24 24" onclick="togglePw()"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Нэвтрэх</button>
+                    <a href="#" class="btn-secondary">Бүртгүүлэх</a>
+                    <a href="#" class="center-link">Бүртгэлтэй утасны дугаараа солих</a>
+                </form>
+            </div>
+
+            <!-- Баруун: QR -->
+            <div class="sso-qr">
+                <div class="qr-box">
+                    <img src="/qr.svg" alt="QR"/>
+                    <span class="qr-logo dan-word" style="font-size:18px;">D<span class="a">A</span>N</span>
+                </div>
+                <div class="qr-title">QR код уншуулах</div>
+                <p class="qr-desc">Та ДАН гар утасны аппликейшн дээр байрлах QR уншигчийг ашиглан хялбар, аюулгүй нэвтрээрэй.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sso-footer">
+        <span>© Бүх эрх хуулиар хамгаалагдсан 2026 он.</span>
+        <span>
+            <a href="#">Бидний тухай</a>
+            <a href="#">Үйлчилгээний нөхцөл</a>
+        </span>
     </div>
 </div>
+
+<script>
+    function pickTab(el) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById('method').value = el.dataset.method;
+    }
+    function togglePw() {
+        const p = document.getElementById('pw');
+        p.type = p.type === 'password' ? 'text' : 'password';
+    }
+    function prepare() {
+        const l1 = document.getElementById('rdL1').value.trim();
+        const l2 = document.getElementById('rdL2').value.trim();
+        const num = document.getElementById('rdNum').value.trim();
+        document.getElementById('personalCode').value = (l1 + l2 + num).toUpperCase();
+        return true;
+    }
+</script>
 </body>
 </html>
