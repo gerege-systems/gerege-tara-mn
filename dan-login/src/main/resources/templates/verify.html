@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ДАН — Баталгаажуулж байна</title>
-    <link rel="stylesheet" href="/dan.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <script src="/scripts/main.js" defer></script>
 </head>
 <body>
-<div class="card">
+<div class="card" th:attr="data-session-id=${sessionId}">
     <div class="brand">
         <div class="logo"><svg th:replace="~{fragments/icons :: __${methodIconName}__}"></svg></div>
         <h1 th:text="${methodLabel}">Нэвтрэлт</h1>
@@ -29,33 +30,5 @@
         Эстони &rarr; Монгол · нээлттэй эхийн TARA системд суурилав<br><span style="opacity:.7;">Powered by Gerege Systems LLC 2026</span>
     </div>
 </div>
-
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    const sessionId = /*[[${sessionId}]]*/ "";
-    const statusEl = document.getElementById("status");
-
-    async function poll() {
-        try {
-            const res = await fetch("/auth/login/poll?sessionId=" + encodeURIComponent(sessionId));
-            const data = await res.json();
-            if (data.status === "SUCCESS") {
-                statusEl.textContent = "Амжилттай! Чиглүүлж байна…";
-                window.location = data.redirectTo;
-                return;
-            }
-            if (data.status === "FAILED") {
-                statusEl.textContent = "Баталгаажуулалт амжилтгүй боллоо.";
-                document.querySelector(".spinner").style.display = "none";
-                return;
-            }
-            setTimeout(poll, 1500);
-        } catch (e) {
-            setTimeout(poll, 2000);
-        }
-    }
-    setTimeout(poll, 1500);
-    /*]]>*/
-</script>
 </body>
 </html>

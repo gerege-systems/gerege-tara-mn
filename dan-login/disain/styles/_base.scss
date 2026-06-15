@@ -1,0 +1,44 @@
+// Суурь: reset, body, давалгаат дэвсгэр, SVG
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--dan-navy);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #cfe1ff 0%, #e6f0ff 45%, #dbebff 100%);
+}
+
+// Давалгаат дэвсгэр (login)
+.wave {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(160deg, #cfe1ff 0%, #e9f1ff 50%, #d7e8ff 100%);
+
+  svg {
+    position: absolute;
+    width: 130%;
+    height: 130%;
+    top: -15%;
+    left: -15%;
+    opacity: .8;
+  }
+}
+
+svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sso-logo, .qr-box img, .qr-logo svg, .circle-btn img { stroke: none; }
+
+.muted { color: var(--dan-muted); font-size: 13px; text-align: center; }
+.mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; }

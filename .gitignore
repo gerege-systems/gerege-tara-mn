@@ -29,3 +29,9 @@ logs/
 
 # Docker volume өгөгдөл (хэрэв локалд mount хийвэл)
 deploy/data/
+
+# frontend build
+node_modules/
+
+# sourcemaps (build artifact)
+dan-login/src/main/resources/static/**/*.map

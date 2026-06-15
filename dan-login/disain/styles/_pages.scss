@@ -1,0 +1,99 @@
+// Бусад хуудсууд: home / verify / error / demo-result (нэг карт төвд)
+
+.card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(14px);
+  width: 100%;
+  max-width: 440px;
+  border-radius: 22px;
+  box-shadow: 0 24px 60px rgba(23, 48, 106, .16);
+  padding: 34px;
+  margin: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: 22px;
+
+  .logo { display: flex; justify-content: center; color: var(--dan-blue); margin-bottom: 8px; }
+  h1 { font-size: 22px; margin: 6px 0 2px; color: var(--dan-navy); }
+  .sub { color: var(--dan-muted); font-size: 13px; }
+}
+
+.control-code {
+  text-align: center;
+  margin: 24px 0;
+
+  .digits { font-size: 40px; font-weight: 700; letter-spacing: 8px; color: var(--dan-blue); }
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--dan-border);
+  border-top-color: var(--dan-blue);
+  border-radius: 50%;
+  margin: 20px auto;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.footer { margin-top: 24px; text-align: center; font-size: 11px; color: var(--dan-muted); }
+
+.error-box { background: #fdecec; border: 1px solid #f5c2c2; color: #9b1c1c; border-radius: 10px; padding: 14px; font-size: 14px; }
+
+.info-list { margin: 20px 0; }
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  margin: 10px 0;
+
+  .ok { display: flex; color: var(--dan-blue); flex-shrink: 0; }
+}
+
+.primary-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px;
+  background: var(--dan-blue);
+  color: #fff;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+
+  &:hover { background: var(--dan-blue-d); }
+}
+
+.links-row {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 16px;
+
+  a { display: inline-flex; align-items: center; gap: 6px; color: var(--dan-muted); font-size: 13px; text-decoration: none; }
+  a:hover { color: var(--dan-blue); }
+}
+
+.claims {
+  margin: 18px 0;
+
+  .claim {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--dan-border);
+    font-size: 14px;
+
+    .k { color: var(--dan-muted); }
+    .v { font-weight: 600; color: var(--dan-navy); }
+  }
+}

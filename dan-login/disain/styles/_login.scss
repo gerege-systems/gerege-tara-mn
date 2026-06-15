@@ -1,0 +1,266 @@
+// SSO login хуудас (sso.gov.mn ДАН дизайн)
+
+.dan-word {
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: var(--dan-blue);
+  line-height: 1;
+
+  .a { display: inline-block; transform: scaleX(.92); }
+}
+
+.sso-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 24px;
+}
+
+.sso-card {
+  width: 100%;
+  max-width: 1100px;
+  background: var(--dan-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 28px;
+  box-shadow: 0 30px 70px rgba(23, 48, 106, 0.16);
+  padding: 30px 40px 40px;
+}
+
+.sso-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.sso-brand { display: flex; align-items: center; gap: 14px; }
+.sso-logo { height: 34px; }
+.sso-brand-text {
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--dan-navy);
+  letter-spacing: .02em;
+}
+
+.head-controls { display: flex; align-items: center; gap: 10px; }
+.lang-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid var(--dan-border);
+  border-radius: 22px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dan-navy);
+}
+.circle-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--dan-border);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+
+  &.dark { background: var(--dan-navy); color: #fff; border-color: var(--dan-navy); }
+  img { width: 100%; height: 100%; object-fit: cover; }
+}
+
+.sso-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.sso-form { max-width: 460px; }
+
+// Tabs
+.tabs { display: flex; gap: 12px; margin-bottom: 24px; }
+.tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  padding: 12px 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--dan-muted);
+  cursor: pointer;
+  white-space: nowrap;
+
+  svg { width: 17px; height: 17px; }
+  &.active {
+    background: #fff;
+    border-color: var(--dan-blue);
+    color: var(--dan-blue);
+    box-shadow: 0 4px 14px rgba(47, 107, 255, .12);
+  }
+}
+
+// Subtabs
+.subtabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.subtab {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dan-muted);
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &.active { background: var(--dan-chip); color: var(--dan-blue); }
+}
+
+// Регистрийн дугаар
+.rd-row { display: flex; gap: 10px; margin-bottom: 20px; }
+.rd-letter {
+  width: 48px;
+  text-align: center;
+  text-transform: uppercase;
+  background: var(--dan-input);
+  border: 1px solid var(--dan-border);
+  border-radius: 12px;
+  padding: 13px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--dan-navy);
+}
+.rd-num {
+  flex: 1;
+  background: var(--dan-input);
+  border: 1px solid var(--dan-border);
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-size: 15px;
+  color: var(--dan-navy);
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 7px;
+
+  label { font-size: 13.5px; font-weight: 600; color: var(--dan-navy); }
+}
+.forgot { font-size: 13px; color: var(--dan-blue); text-decoration: none; }
+
+.pw-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--dan-input);
+  border: 1px solid var(--dan-border);
+  border-radius: 12px;
+  padding: 0 14px;
+  margin-bottom: 22px;
+
+  svg { width: 18px; height: 18px; color: var(--dan-muted); flex-shrink: 0; }
+  input { flex: 1; border: none; outline: none; padding: 14px 0; font-size: 15px; background: transparent; color: var(--dan-navy); }
+  .eye { cursor: pointer; }
+}
+
+input:focus { outline: none; }
+.rd-letter:focus, .rd-num:focus, .pw-input:focus-within {
+  border-color: var(--dan-blue);
+  box-shadow: 0 0 0 3px rgba(47, 107, 255, .12);
+}
+
+.btn-primary {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  background: var(--dan-blue);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 12px;
+
+  &:hover { background: var(--dan-blue-d); }
+}
+.btn-secondary {
+  width: 100%;
+  border: 1px solid var(--dan-border);
+  border-radius: 12px;
+  padding: 14px;
+  background: #fff;
+  color: var(--dan-blue);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+
+  &:hover { border-color: var(--dan-blue); }
+}
+.center-link {
+  display: block;
+  text-align: center;
+  margin-top: 18px;
+  color: var(--dan-navy-soft);
+  font-size: 13.5px;
+  text-decoration: none;
+
+  &:hover { color: var(--dan-blue); }
+}
+
+// QR панель
+.sso-qr { display: flex; flex-direction: column; align-items: center; padding-top: 10px; }
+.qr-box {
+  position: relative;
+  background: #fff;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 12px 34px rgba(23, 48, 106, .12);
+
+  img { display: block; width: 210px; height: 210px; }
+}
+.qr-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+.qr-title { color: var(--dan-blue); font-weight: 700; font-size: 16px; margin: 18px 0 10px; }
+.qr-desc { color: var(--dan-navy-soft); font-size: 14px; text-align: center; line-height: 1.6; max-width: 280px; }
+
+// Footer
+.sso-footer {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 22px;
+  padding: 0 6px;
+  font-size: 13px;
+  color: var(--dan-navy-soft);
+
+  a { color: var(--dan-navy-soft); text-decoration: none; margin-left: 22px; }
+  a:hover { color: var(--dan-blue); }
+}
+
+@media (max-width: 760px) {
+  .sso-body { grid-template-columns: 1fr; }
+  .sso-qr { display: none; }
+  .sso-card { padding: 22px; }
+}

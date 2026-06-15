@@ -1,0 +1,21 @@
+// ДАН өнгөний систем — SCSS хувьсагч + CSS custom properties
+$dan-blue: #2f6bff;
+$dan-blue-d: #1f57e6;
+$dan-navy: #16306a;
+$dan-navy-soft: #1b3a73;
+$dan-muted: #6b82a6;
+$dan-border: #d8e3f5;
+$dan-input: #ffffff;
+$dan-chip: #e7eefc;
+
+:root {
+  --dan-blue: #{$dan-blue};
+  --dan-blue-d: #{$dan-blue-d};
+  --dan-navy: #{$dan-navy};
+  --dan-navy-soft: #{$dan-navy-soft};
+  --dan-muted: #{$dan-muted};
+  --dan-border: #{$dan-border};
+  --dan-card: rgba(255, 255, 255, 0.55);
+  --dan-input: #{$dan-input};
+  --dan-chip: #{$dan-chip};
+}

@@ -21,7 +21,7 @@ verify=$(curl -s -c "$JAR" -b "$JAR" \
   --data-urlencode "personalCode=$RD" \
   --data-urlencode "phoneNumber=99112233" \
   "$APP/auth/login")
-sid=$(echo "$verify" | grep -o 'sessionId = "[^"]*"' | head -1 | sed 's/.*"\(.*\)"/\1/')
+sid=$(echo "$verify" | grep -oE 'data-session-id="[^"]+"' | head -1 | sed 's/.*"\(.*\)"/\1/')
 [ -z "$sid" ] && { echo "✗ [$METHOD] sessionId алга"; exit 1; }
 
 redirectTo=""

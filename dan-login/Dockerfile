@@ -1,13 +1,20 @@
-# ДАН-login — олон шатлалт Docker build (TARA-Login мөн Docker дэмждэг)
+# ДАН-login — олон шатлалт Docker build (frontend + backend), TARA-Login шиг
 
-# ── 1-р шат: build ────────────────────────────────────────────────────────
+# ── 0-р шат: frontend asset build (SCSS → CSS, JS → uglify) — disain бүтэц ──
+FROM node:20 AS frontend
+WORKDIR /app
+COPY disain ./disain
+RUN cd disain && npm install --no-audit --no-fund && npx gulp build
+# Гаралт: /app/src/main/resources/static/{styles,scripts,assets}
+
+# ── 1-р шат: backend build (Maven) ────────────────────────────────────────
 FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
-# Эхлээд зөвхөн pom — кэшлэг dependency давхарга
 COPY pom.xml .
 RUN mvn -B -q dependency:go-offline
-# Дараа нь эх код
 COPY src ./src
+# frontend шатнаас шинээр build хийсэн static-ийг дээр нь давхарлана
+COPY --from=frontend /app/src/main/resources/static ./src/main/resources/static
 RUN mvn -B -q clean package -DskipTests
 
 # ── 2-р шат: runtime (хөнгөн JRE) ─────────────────────────────────────────
