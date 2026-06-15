@@ -5,6 +5,9 @@
   // ── Login: нэвтрэлтийн арга сонгох таб ──
   var tabs = document.querySelectorAll('.tab');
   var methodInput = document.getElementById('method');
+  // Эхэнд идэвхтэй табын аргыг далд талбарт тааруулна (эрэмбээс үл хамаарч зөв)
+  var activeTab = document.querySelector('.tab.active');
+  if (activeTab && methodInput) { methodInput.value = activeTab.dataset.method; }
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
       tabs.forEach(function (t) { t.classList.remove('active'); });

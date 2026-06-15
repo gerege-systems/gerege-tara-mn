@@ -37,6 +37,10 @@ public class LoginController {
 
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
+    /** Табын харагдах эрэмбэ (Mobile-ID эхэндээ, default). */
+    private static final List<AuthMethod> DISPLAY_ORDER = List.of(
+            AuthMethod.MOBILE_ID, AuthMethod.EID_CARD, AuthMethod.SMART_ID, AuthMethod.BIOMETRIC);
+
     private final HydraAdminClient hydra;
     private final AuthenticationMethodRegistry methods;
     private final SessionStore sessions;
@@ -58,6 +62,7 @@ public class LoginController {
         log.info("Login challenge — хүсэгч үйлчилгээ: {}", clientName);
 
         List<MethodView> methodViews = methods.available().stream()
+                .sorted(java.util.Comparator.comparingInt(DISPLAY_ORDER::indexOf))
                 .map(MethodView::of)
                 .toList();
 
