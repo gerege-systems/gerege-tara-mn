@@ -56,6 +56,11 @@ gerege/
 
 **Зарчим:** `auth-api` нь нэг л интерфейс тодорхойлно — `AuthenticationMethodHandler`. Адаптер бүр үүнийг хэрэгжүүлнэ. Шинэ арга нэмэх = шинэ модуль бичих, цөмд хүрэхгүй. *(TARA-гийн нээлттэй/өргөтгөх загвар.)*
 
+> 📦 **Одоогийн MVP бодит бүтэц** (нэг Maven модуль, дараа нь дээрх олон модуль болгож
+> хуваана): `mn.gov.gerege` — гол интерфейс, төрлүүд; `.auth` — handler-ууд + registry;
+> `.registry` — ХУР клиент (`PersonRegistry`/`MockHurClient`); `.hydra` — `HydraAdminClient`;
+> `.web` — контроллер, `SessionStore` (Redis); `.audit` — `AuditLogger`.
+
 ---
 
 ## 2.3. Гол интерфейс (бүх адаптерийн гэрээ)
@@ -86,12 +91,14 @@ public interface AuthenticationMethodHandler {
 |----------|-----------|----------|
 | OIDC цөм | **Ory Hydra** | TARA-тай ижил, баталгаажсан, нээлттэй эх |
 | Webapp | **Java 17 + Spring Boot** | TARA-гийн стекийг хадгалснаар код дахин ашиглах |
-| Сесс | **Redis** эсвэл Apache Ignite | TARA Ignite ашигладаг; Redis илүү танил байж болзошгүй |
+| Сесс | **Redis** (сонгосон) | TARA Ignite ашигладаг; бид Redis сонгов (TTL-тэй, түгээмэл) |
 | UI | Thymeleaf + ванила JS | Хөнгөн, серверээс render, олон хэл |
 | Дата солилцоо | **X-Road / ХУР** | Монголын одоо байгаа дэд бүтэц |
 | Контейнер | Docker + Helm/K8s | Орчин үеийн deploy |
 
-> ⚠️ **Шийдвэрлэх цэг:** Сесс хадгалалтыг Ignite (TARA шиг) эсвэл Redis-ээр хийх үү? Энэ нь баг танай DevOps туршлагаас хамаарна — `docs/03-ZAM-MOR.md`-д тодруулна.
+> ✅ **Шийдэгдсэн:** Сесс хадгалалтыг **Redis**-ээр хийхээр сонгов. `SessionStore` нь
+> `StringRedisTemplate`-ээр JSON хадгалж, 5 минутын TTL-тэй (хаягдсан нэвтрэлт автоматаар
+> устах). Бодит хэрэгжүүлэлт: `gerege-login/.../web/SessionStore.java`.
 
 ---
 

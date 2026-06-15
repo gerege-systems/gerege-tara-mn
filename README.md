@@ -6,9 +6,12 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Status: MVP working](https://img.shields.io/badge/status-MVP%20working-success.svg)](gerege-login/README.md)
 
-> ✅ **MVP ажиллаж байна:** Ory Hydra + `gerege-login` дээр Mobile-ID (mock) нэвтрэлтийн
-> бүрэн OIDC урсгал баталгаажсан — `id_token`-д `sub` (РД), `name`, `loa: HIGH` claim
-> зөв гарна. Ажиллуулах: [`gerege-login/README.md`](gerege-login/README.md).
+> ✅ **MVP ажиллаж байна:** Ory Hydra + `gerege-login` дээр **4 нэвтрэлтийн арга**
+> (Mobile-ID, eID, Smart-ID, Биометр — бүгд mock) end-to-end OIDC урсгалтай. ХУР
+> (X-Road) абстракци, **Redis сесс** (TTL), **аудит лог** (РД маск), 13 нэгж тест, CI.
+> `id_token`-д `sub` (РД), `name`, `loa`, `auth_method` claim зөв гарна.
+> Бүх аргын тест: `bash scripts/e2e-test.sh MOBILE_ID УУ00010101`.
+> Ажиллуулах: [`gerege-login/README.md`](gerege-login/README.md).
 
 ---
 
