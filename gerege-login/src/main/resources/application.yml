@@ -6,6 +6,10 @@ spring:
     name: gerege-login
   thymeleaf:
     cache: false   # хөгжүүлэлтэд template-ийг шууд дахин ачаална
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
 
 # Гэрэгэ-н тохиргоо
 gerege:

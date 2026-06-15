@@ -1,31 +1,65 @@
 package mn.gov.gerege.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import mn.gov.gerege.AuthSession;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.Map;
+import java.time.Duration;
 
 /**
- * Эхлүүлсэн нэвтрэлтийн сессийг HTTP хүсэлтүүдийн хооронд хадгалах энгийн санах ой.
+ * Эхлүүлсэн нэвтрэлтийн сессийг Redis-д хадгалах сан.
  *
- * <p>MVP-д энгийн in-memory map. Production-д энэ нь Redis (эсвэл TARA шиг Apache
- * Ignite) болж, олон instance хооронд тархсан байх ёстой.</p>
+ * <p>TARA нь сессээ Apache Ignite-д тархсан байдлаар хадгалдаг; бид Redis ашиглав.
+ * Энэ нь олон instance хооронд сесс хуваалцах боломж олгохоос гадна {@link #TTL}
+ * хугацаа дуусгалтаар сессийн аюулгүй байдлыг (хаягдсан нэвтрэлт автоматаар
+ * устах) хангана — TARA-гийн богино сессийн зарчим.</p>
  */
 @Component
 public class SessionStore {
 
-    private final Map<String, AuthSession> sessions = new ConcurrentHashMap<>();
+    /** Сесс хүчинтэй байх хугацаа (TARA-гийн ~300с-тэй ойролцоо). */
+    private static final Duration TTL = Duration.ofMinutes(5);
+    private static final String KEY_PREFIX = "gerege:session:";
+
+    private final StringRedisTemplate redis;
+    private final ObjectMapper mapper;
+
+    public SessionStore(StringRedisTemplate redis, ObjectMapper mapper) {
+        this.redis = redis;
+        this.mapper = mapper;
+    }
 
     public void save(AuthSession session) {
-        sessions.put(session.sessionId(), session);
+        redis.opsForValue().set(key(session.sessionId()), toJson(session), TTL);
     }
 
     public AuthSession get(String sessionId) {
-        return sessions.get(sessionId);
+        String json = redis.opsForValue().get(key(sessionId));
+        return json == null ? null : fromJson(json);
     }
 
     public void remove(String sessionId) {
-        sessions.remove(sessionId);
+        redis.delete(key(sessionId));
+    }
+
+    private String key(String sessionId) {
+        return KEY_PREFIX + sessionId;
+    }
+
+    private String toJson(AuthSession session) {
+        try {
+            return mapper.writeValueAsString(session);
+        } catch (Exception e) {
+            throw new IllegalStateException("Сесс сериалчлахад алдаа гарлаа", e);
+        }
+    }
+
+    private AuthSession fromJson(String json) {
+        try {
+            return mapper.readValue(json, AuthSession.class);
+        } catch (Exception e) {
+            throw new IllegalStateException("Сесс уншихад алдаа гарлаа", e);
+        }
     }
 }
