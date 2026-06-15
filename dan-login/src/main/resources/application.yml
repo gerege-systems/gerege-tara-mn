@@ -6,6 +6,10 @@ spring:
     name: dan-login
   thymeleaf:
     cache: false   # хөгжүүлэлтэд template-ийг шууд дахин ачаална
+  messages:
+    basename: messages
+    encoding: UTF-8
+    fallback-to-system-locale: false
   data:
     redis:
       host: ${REDIS_HOST:localhost}

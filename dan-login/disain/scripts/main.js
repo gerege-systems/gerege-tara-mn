@@ -21,6 +21,17 @@
       });
     }
 
+    // ── Хэл солих (MN ↔ EN) ──
+    var langBtn = document.getElementById('langToggle');
+    if (langBtn) {
+      langBtn.addEventListener('click', function () {
+        var cur = (document.documentElement.lang || 'mn').slice(0, 2);
+        var next = cur === 'en' ? 'mn' : 'en';
+        document.cookie = 'DAN_LANG=' + next + ';path=/;max-age=31536000';
+        location.reload();
+      });
+    }
+
     // ── Login: нэвтрэлтийн арга сонгох таб ──
     var tabs = document.querySelectorAll('.tab');
     var methodInput = document.getElementById('method');

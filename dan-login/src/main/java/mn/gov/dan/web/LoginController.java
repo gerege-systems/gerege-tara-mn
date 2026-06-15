@@ -89,7 +89,7 @@ public class LoginController {
         MethodView view = MethodView.of(method);
         model.addAttribute("sessionId", session.sessionId());
         model.addAttribute("controlCode", session.controlCode());
-        model.addAttribute("methodLabel", view.label());
+        model.addAttribute("methodLabelKey", view.labelKey());
         model.addAttribute("methodIconName", view.iconName());
         return "verify";
     }

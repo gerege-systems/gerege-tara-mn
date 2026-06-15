@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="mn" xmlns:th="http://www.thymeleaf.org">
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ДАН — Монголын төрийн нэгдсэн нэвтрэлт</title>
+    <title th:text="#{home.title}">ДАН — Монголын төрийн нэгдсэн нэвтрэлт</title>
     <link rel="stylesheet" href="/styles/main.css">
     <script src="/scripts/main.js"></script>
 </head>
@@ -12,44 +12,42 @@
     <div class="brand">
         <div class="logo"><svg th:replace="~{fragments/icons :: shield}"></svg></div>
         <h1>ДАН</h1>
-        <div class="sub">Монголын төрийн нэгдсэн нэвтрэлтийн үйлчилгээ</div>
+        <div class="sub" th:text="#{home.sub}">Монголын төрийн нэгдсэн нэвтрэлтийн үйлчилгээ</div>
     </div>
 
-    <p class="muted" style="text-align:left; line-height:1.6;">
-        Энэ бол төрийн цахим үйлчилгээнүүдэд зориулсан <b>нэвтрэлтийн үйлчилгээ</b>.
-        Иргэн та шууд энд нэвтрэхгүй — аль нэг үйлчилгээ (жишээ нь Е-Монгол) таныг
-        энд чиглүүлж, та нэг л удаа баталгаажаад буцна.
+    <p class="muted" style="text-align:left; line-height:1.6;" th:text="#{home.desc}">
+        Энэ бол төрийн цахим үйлчилгээнүүдэд зориулсан нэвтрэлтийн үйлчилгээ.
     </p>
 
     <div class="info-list">
         <div class="info-row">
             <span class="ok"><svg th:replace="~{fragments/icons :: check}"></svg></span>
-            <span>Mobile-ID, e-Иргэний үнэмлэх, Smart-ID, Нүүр таниулалт</span>
+            <span th:text="#{home.feat1}">Mobile-ID, e-Иргэний үнэмлэх, Smart-ID, Нүүр таниулалт</span>
         </div>
         <div class="info-row">
             <span class="ok"><svg th:replace="~{fragments/icons :: check}"></svg></span>
-            <span>OpenID Connect стандарт — ямар ч үйлчилгээ холбогдоно</span>
+            <span th:text="#{home.feat2}">OpenID Connect стандарт — ямар ч үйлчилгээ холбогдоно</span>
         </div>
         <div class="info-row">
             <span class="ok"><svg th:replace="~{fragments/icons :: check}"></svg></span>
-            <span>Эстонийн нээлттэй эхийн TARA системд суурилав</span>
+            <span th:text="#{home.feat3}">Эстонийн нээлттэй эхийн TARA системд суурилав</span>
         </div>
     </div>
 
     <a class="primary-btn" href="/demo/start">
         <svg th:replace="~{fragments/icons :: login}"></svg>
-        Демо нэвтрэлт туршах
+        <span th:text="#{home.demo}">Демо нэвтрэлт туршах</span>
     </a>
 
     <div class="links-row">
         <a href="/admin" target="_blank">
-            <svg th:replace="~{fragments/icons :: settings}"></svg> Үйлчилгээ бүртгэх (Админ)
+            <svg th:replace="~{fragments/icons :: settings}"></svg> <span th:text="#{home.admin}">Үйлчилгээ бүртгэх (Админ)</span>
         </a>
-        <a href="/actuator/health" target="_blank">Системийн төлөв</a>
+        <a href="/actuator/health" target="_blank" th:text="#{home.health}">Системийн төлөв</a>
     </div>
 
     <div class="footer">
-        Эстони &rarr; Монгол · нээлттэй эхийн TARA системд суурилав<br><span style="opacity:.7;">Powered by Gerege Systems LLC 2026</span>
+        <span th:text="#{footer.tara}">Эстони → Монгол · нээлттэй эхийн TARA системд суурилав</span><br><span style="opacity:.7;">Powered by Gerege Systems LLC 2026</span>
     </div>
 </div>
 </body>

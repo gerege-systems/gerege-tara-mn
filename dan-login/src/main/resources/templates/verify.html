@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="mn" xmlns:th="http://www.thymeleaf.org">
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ДАН — Баталгаажуулж байна</title>
+    <title th:text="#{verify.title}">ДАН — Баталгаажуулж байна</title>
     <link rel="stylesheet" href="/styles/main.css">
     <script src="/scripts/main.js"></script>
 </head>
@@ -11,23 +11,23 @@
 <div class="card" th:attr="data-session-id=${sessionId}">
     <div class="brand">
         <div class="logo"><svg th:replace="~{fragments/icons :: __${methodIconName}__}"></svg></div>
-        <h1 th:text="${methodLabel}">Нэвтрэлт</h1>
-        <div class="sub">Баталгаажуулж байна</div>
+        <h1 th:text="#{__${methodLabelKey}__}">Нэвтрэлт</h1>
+        <div class="sub" th:text="#{verify.sub}">Баталгаажуулж байна</div>
     </div>
 
     <!-- Баталгааны код (зөвхөн ашигладаг аргуудад: Mobile-ID, Smart-ID) -->
     <div class="control-code" th:if="${controlCode != null}">
-        <div class="muted">Баталгааны код</div>
+        <div class="muted" th:text="#{verify.code}">Баталгааны код</div>
         <div class="digits" th:text="${controlCode}">0000</div>
     </div>
 
     <div class="spinner"></div>
-    <p class="muted" id="status">
+    <p class="muted" id="status" th:text="#{verify.prompt}">
         Төхөөрөмж дээрээ баталгаажуулна уу…
     </p>
 
     <div class="footer">
-        Эстони &rarr; Монгол · нээлттэй эхийн TARA системд суурилав<br><span style="opacity:.7;">Powered by Gerege Systems LLC 2026</span>
+        <span th:text="#{footer.tara}">Эстони → Монгол · нээлттэй эхийн TARA системд суурилав</span><br><span style="opacity:.7;">Powered by Gerege Systems LLC 2026</span>
     </div>
 </div>
 </body>
