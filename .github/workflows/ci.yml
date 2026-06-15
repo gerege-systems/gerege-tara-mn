@@ -8,11 +8,14 @@ on:
 
 jobs:
   build:
-    name: Build & Test (gerege-login)
+    name: Build & Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module: [gerege-login, gerege-admin]
     defaults:
       run:
-        working-directory: gerege-login
+        working-directory: ${{ matrix.module }}
     steps:
       - uses: actions/checkout@v4
 
@@ -30,6 +33,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: surefire-reports
-          path: gerege-login/target/surefire-reports/
+          name: surefire-reports-${{ matrix.module }}
+          path: ${{ matrix.module }}/target/surefire-reports/
           if-no-files-found: ignore

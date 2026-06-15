@@ -83,5 +83,18 @@ services:
         condition: service_started
     restart: unless-stopped
 
+  # ── 6. Гэрэгэ-admin: үйлчилгээ (RP) бүртгэлийн портал ──────────────────────
+  #    ⚠️ Hydra-гийн admin порт руу ханддаг — production-д дотоод сүлжээнд тусгаар.
+  gerege-admin:
+    build: ../gerege-admin
+    ports:
+      - "4000:4000"
+    environment:
+      GEREGE_HYDRA_ADMIN_URL: http://hydra:4445
+    depends_on:
+      hydra:
+        condition: service_healthy
+    restart: unless-stopped
+
 volumes:
   hydra-postgres:
