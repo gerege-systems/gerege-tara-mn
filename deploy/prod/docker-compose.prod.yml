@@ -1,0 +1,104 @@
+# ДАН — Production stack (dan.dgov.mn)
+# Caddy нь TLS-ийг (Let's Encrypt) автоматаар авч, dan.dgov.mn-ийг route хийнэ.
+#
+# Ажиллуулах:  cd deploy/prod && docker compose -f docker-compose.prod.yml up -d --build
+#
+# ⚠️ Hydra нь --dev горимд (TLS-ийг Caddy дээр төгсгөнө). Жинхэнэ production-д
+#    Hydra-г TLS termination зөвшөөрлөөр хатууруулах хэрэгтэй.
+
+name: dan-prod
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: hydra
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: hydra
+    volumes:
+      - hydra-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hydra -d hydra"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+
+  hydra-migrate:
+    image: oryd/hydra:v2.2.0
+    command: migrate sql -e --yes
+    environment:
+      DSN: postgres://hydra:${POSTGRES_PASSWORD}@postgres:5432/hydra?sslmode=disable
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: on-failure
+
+  hydra:
+    image: oryd/hydra:v2.2.0
+    command: serve all --dev --config /etc/config/hydra/hydra.yml
+    environment:
+      DSN: postgres://hydra:${POSTGRES_PASSWORD}@postgres:5432/hydra?sslmode=disable
+      SECRETS_SYSTEM: ${HYDRA_SECRET}
+      OIDC_SUBJECT_IDENTIFIERS_PAIRWISE_SALT: ${HYDRA_SALT}
+    volumes:
+      - ./hydra.yml:/etc/config/hydra/hydra.yml:ro
+    depends_on:
+      hydra-migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4445/health/ready"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  dan-login:
+    build: ../../dan-login
+    environment:
+      DAN_HYDRA_ADMIN_URL: http://hydra:4445
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      DAN_DEMO_ISSUER: https://dan.dgov.mn
+      DAN_DEMO_TOKEN_URL: http://hydra:4444
+      DAN_DEMO_REDIRECT: https://dan.dgov.mn/demo/callback
+      DAN_DEMO_CLIENT_SECRET: ${DEMO_CLIENT_SECRET}
+    depends_on:
+      hydra:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: unless-stopped
+
+  # Админ портал — public-д ИЛ ГАРГАХГҮЙ (Caddy route байхгүй). SSH tunnel-ээр хандана.
+  dan-admin:
+    build: ../../dan-admin
+    environment:
+      DAN_HYDRA_ADMIN_URL: http://hydra:4445
+    depends_on:
+      hydra:
+        condition: service_healthy
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - dan-login
+      - hydra
+    restart: unless-stopped
+
+volumes:
+  hydra-postgres:
+  caddy-data:
+  caddy-config:

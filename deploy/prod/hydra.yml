@@ -1,0 +1,39 @@
+# Ory Hydra — production тохиргоо (dan.dgov.mn). Нууцууд env-ээр (SECRETS_SYSTEM,
+# OIDC_SUBJECT_IDENTIFIERS_PAIRWISE_SALT) дамжина — энд хадгалахгүй.
+
+serve:
+  cookies:
+    same_site_mode: Lax
+  public:
+    cors:
+      enabled: true
+      allowed_origins:
+        - https://dan.dgov.mn
+
+urls:
+  self:
+    issuer: https://dan.dgov.mn
+    public: https://dan.dgov.mn
+  login: https://dan.dgov.mn/auth/login
+  consent: https://dan.dgov.mn/auth/consent
+  logout: https://dan.dgov.mn/auth/logout
+  error: https://dan.dgov.mn/auth/error
+
+oidc:
+  subject_identifiers:
+    supported_types:
+      - public
+      - pairwise
+
+strategies:
+  access_token: opaque
+
+ttl:
+  access_token: 15m
+  refresh_token: 24h
+  id_token: 15m
+  auth_code: 10m
+
+log:
+  level: info
+  format: json

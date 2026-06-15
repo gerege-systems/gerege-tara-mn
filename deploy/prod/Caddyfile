@@ -1,0 +1,16 @@
+# ДАН — Caddy reverse proxy (dan.dgov.mn) — автомат HTTPS (Let's Encrypt)
+
+dan.dgov.mn {
+	encode gzip
+
+	# OIDC цөмийн нийтийн endpoint-ууд → Hydra public (4444)
+	@hydra path /oauth2/* /.well-known/* /userinfo /userinfo/* /health/*
+	handle @hydra {
+		reverse_proxy hydra:4444
+	}
+
+	# Бусад бүх зам (нүүр, /auth/*, /demo/*, /actuator) → dan-login (3000)
+	handle {
+		reverse_proxy dan-login:3000
+	}
+}
