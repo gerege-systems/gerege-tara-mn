@@ -18,42 +18,26 @@
         <b th:text="${clientName}">Үйлчилгээ</b> танаас нэвтрэхийг хүсэж байна
     </div>
 
-    <!-- Арга сонголт (MVP-д зөвхөн Mobile-ID идэвхтэй) -->
-    <div class="methods">
-        <label class="method active">
-            <span class="icon">📱</span>
-            <span>Mobile-ID</span>
-            <span class="badge">SIM-PKI</span>
-        </label>
-        <div class="method disabled">
-            <span class="icon">🪪</span>
-            <span>e-Иргэний үнэмлэх</span>
-            <span class="badge">удахгүй</span>
-        </div>
-        <div class="method disabled">
-            <span class="icon">📲</span>
-            <span>Smart-ID / Апп</span>
-            <span class="badge">удахгүй</span>
-        </div>
-        <div class="method disabled">
-            <span class="icon">🙂</span>
-            <span>Нүүр таниулалт</span>
-            <span class="badge">удахгүй</span>
-        </div>
-    </div>
-
     <form method="post" th:action="@{/auth/login}">
         <input type="hidden" name="login_challenge" th:value="${loginChallenge}"/>
+
+        <div class="methods">
+            <label class="method active" th:each="m, it : ${methods}">
+                <input type="radio" name="method" th:value="${m.name}" th:checked="${it.index == 0}"/>
+                <span class="icon" th:text="${m.icon}">📱</span>
+                <span th:text="${m.label}">Арга</span>
+                <span class="badge" th:text="${m.loa}">LOA</span>
+            </label>
+        </div>
 
         <label for="personalCode">Регистрийн дугаар (РД)</label>
         <input type="text" id="personalCode" name="personalCode"
                placeholder="УУ00010101" required autofocus/>
 
-        <label for="phoneNumber">Утасны дугаар</label>
-        <input type="tel" id="phoneNumber" name="phoneNumber"
-               placeholder="99112233" required/>
+        <label for="phoneNumber">Утасны дугаар <span class="muted">(Mobile-ID-д)</span></label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="99112233"/>
 
-        <button type="submit">📱 Mobile-ID-аар нэвтрэх</button>
+        <button type="submit">Нэвтрэх</button>
     </form>
 
     <div class="footer">

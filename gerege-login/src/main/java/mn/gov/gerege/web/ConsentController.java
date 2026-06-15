@@ -50,12 +50,12 @@ public class ConsentController {
     /** Шаардсан scope-ийн дагуу id_token-д орох claim-уудыг бүрдүүлэх. */
     private Map<String, Object> buildIdTokenClaims(List<String> scopes, Map<String, Object> context) {
         Map<String, Object> claims = new HashMap<>();
-        // "loa" нь аль ч scope-оос үл хамааран чухал тул үргэлж нэмнэ.
+        // "loa" ба "auth_method" нь аль ч scope-оос үл хамааран чухал тул үргэлж нэмнэ.
         if (context.containsKey("loa")) {
             claims.put("loa", context.get("loa"));
         }
-        if (context.containsKey("amr")) {
-            claims.put("amr", List.of(String.valueOf(context.get("amr"))));
+        if (context.containsKey("auth_method")) {
+            claims.put("auth_method", context.get("auth_method"));
         }
         if (scopes.contains("profile")) {
             String given = String.valueOf(context.getOrDefault("given_name", ""));

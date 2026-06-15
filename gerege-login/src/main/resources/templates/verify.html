@@ -9,19 +9,20 @@
 <body>
 <div class="card">
     <div class="brand">
-        <div class="logo">📱</div>
-        <h1>Mobile-ID</h1>
-        <div class="sub">Утсан дээрх кодтой тулгана уу</div>
+        <div class="logo" th:text="${methodIcon}">📱</div>
+        <h1 th:text="${methodLabel}">Нэвтрэлт</h1>
+        <div class="sub">Баталгаажуулж байна</div>
     </div>
 
-    <div class="control-code">
+    <!-- Баталгааны код (зөвхөн ашигладаг аргуудад: Mobile-ID, Smart-ID) -->
+    <div class="control-code" th:if="${controlCode != null}">
         <div class="muted">Баталгааны код</div>
         <div class="digits" th:text="${controlCode}">0000</div>
     </div>
 
     <div class="spinner"></div>
     <p class="muted" id="status">
-        Утсан дээрээ кодыг шалгаж, PIN1 оруулна уу…
+        Төхөөрөмж дээрээ баталгаажуулна уу…
     </p>
 
     <div class="footer">
@@ -36,7 +37,7 @@
 
     async function poll() {
         try {
-            const res = await fetch("/auth/login/mobile-id/poll?sessionId=" + encodeURIComponent(sessionId));
+            const res = await fetch("/auth/login/poll?sessionId=" + encodeURIComponent(sessionId));
             const data = await res.json();
             if (data.status === "SUCCESS") {
                 statusEl.textContent = "Амжилттай! Чиглүүлж байна…";
@@ -48,7 +49,7 @@
                 document.querySelector(".spinner").style.display = "none";
                 return;
             }
-            setTimeout(poll, 1500); // RUNNING — дахин шалгана
+            setTimeout(poll, 1500);
         } catch (e) {
             setTimeout(poll, 2000);
         }

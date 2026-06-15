@@ -7,18 +7,18 @@ import org.springframework.stereotype.Component;
 import java.time.Duration;
 
 /**
- * Mobile-ID (SIM-PKI) — баталгааны код ашигладаг, LoA HIGH. TARA-гийн Mobile-ID-ийн дүйцэл.
+ * Smart-ID / Апп — баталгааны код ашигладаг, LoA SUBSTANTIAL. TARA-гийн Smart-ID-ийн дүйцэл.
  */
 @Component
-public class MockMobileIdHandler extends AbstractMockHandler {
+public class MockSmartIdHandler extends AbstractMockHandler {
 
-    public MockMobileIdHandler(PersonRegistry registry) {
+    public MockSmartIdHandler(PersonRegistry registry) {
         super(registry);
     }
 
     @Override
     public AuthMethod method() {
-        return AuthMethod.MOBILE_ID;
+        return AuthMethod.SMART_ID;
     }
 
     @Override
