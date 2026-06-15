@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="mn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гэрэгэ — Баталгаажуулж байна</title>
+    <link rel="stylesheet" href="/gerege.css">
+</head>
+<body>
+<div class="card">
+    <div class="brand">
+        <div class="logo">📱</div>
+        <h1>Mobile-ID</h1>
+        <div class="sub">Утсан дээрх кодтой тулгана уу</div>
+    </div>
+
+    <div class="control-code">
+        <div class="muted">Баталгааны код</div>
+        <div class="digits" th:text="${controlCode}">0000</div>
+    </div>
+
+    <div class="spinner"></div>
+    <p class="muted" id="status">
+        Утсан дээрээ кодыг шалгаж, PIN1 оруулна уу…
+    </p>
+
+    <div class="footer">
+        🇪🇪 → 🇲🇳 Эстонийн нээлттэй эхийн TARA системд суурилав
+    </div>
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const sessionId = /*[[${sessionId}]]*/ "";
+    const statusEl = document.getElementById("status");
+
+    async function poll() {
+        try {
+            const res = await fetch("/auth/login/mobile-id/poll?sessionId=" + encodeURIComponent(sessionId));
+            const data = await res.json();
+            if (data.status === "SUCCESS") {
+                statusEl.textContent = "Амжилттай! Чиглүүлж байна…";
+                window.location = data.redirectTo;
+                return;
+            }
+            if (data.status === "FAILED") {
+                statusEl.textContent = "Баталгаажуулалт амжилтгүй боллоо.";
+                document.querySelector(".spinner").style.display = "none";
+                return;
+            }
+            setTimeout(poll, 1500); // RUNNING — дахин шалгана
+        } catch (e) {
+            setTimeout(poll, 2000);
+        }
+    }
+    setTimeout(poll, 1500);
+    /*]]>*/
+</script>
+</body>
+</html>

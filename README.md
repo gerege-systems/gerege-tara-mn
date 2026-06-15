@@ -4,7 +4,11 @@
 > *Эстонийн нээлттэй эхийн **TARA** (Riigi Autentimisteenus) системийг эх загвар болгон, Монголын төрийн дижитал дэд бүтцэд тохируулан хувилж бүтээсэн нээлттэй эхийн төсөл.*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Status: Planning](https://img.shields.io/badge/status-planning-blue.svg)](docs/PLAN.md)
+[![Status: MVP working](https://img.shields.io/badge/status-MVP%20working-success.svg)](gerege-login/README.md)
+
+> ✅ **MVP ажиллаж байна:** Ory Hydra + `gerege-login` дээр Mobile-ID (mock) нэвтрэлтийн
+> бүрэн OIDC урсгал баталгаажсан — `id_token`-д `sub` (РД), `name`, `loa: HIGH` claim
+> зөв гарна. Ажиллуулах: [`gerege-login/README.md`](gerege-login/README.md).
 
 ---
 

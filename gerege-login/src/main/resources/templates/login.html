@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="mn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гэрэгэ — Нэвтрэх</title>
+    <link rel="stylesheet" href="/gerege.css">
+</head>
+<body>
+<div class="card">
+    <div class="brand">
+        <div class="logo">🪪</div>
+        <h1>Гэрэгэ</h1>
+        <div class="sub">Монголын төрийн нэгдсэн нэвтрэлт</div>
+    </div>
+
+    <div class="client-banner">
+        <b th:text="${clientName}">Үйлчилгээ</b> танаас нэвтрэхийг хүсэж байна
+    </div>
+
+    <!-- Арга сонголт (MVP-д зөвхөн Mobile-ID идэвхтэй) -->
+    <div class="methods">
+        <label class="method active">
+            <span class="icon">📱</span>
+            <span>Mobile-ID</span>
+            <span class="badge">SIM-PKI</span>
+        </label>
+        <div class="method disabled">
+            <span class="icon">🪪</span>
+            <span>e-Иргэний үнэмлэх</span>
+            <span class="badge">удахгүй</span>
+        </div>
+        <div class="method disabled">
+            <span class="icon">📲</span>
+            <span>Smart-ID / Апп</span>
+            <span class="badge">удахгүй</span>
+        </div>
+        <div class="method disabled">
+            <span class="icon">🙂</span>
+            <span>Нүүр таниулалт</span>
+            <span class="badge">удахгүй</span>
+        </div>
+    </div>
+
+    <form method="post" th:action="@{/auth/login}">
+        <input type="hidden" name="login_challenge" th:value="${loginChallenge}"/>
+
+        <label for="personalCode">Регистрийн дугаар (РД)</label>
+        <input type="text" id="personalCode" name="personalCode"
+               placeholder="УУ00010101" required autofocus/>
+
+        <label for="phoneNumber">Утасны дугаар</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber"
+               placeholder="99112233" required/>
+
+        <button type="submit">📱 Mobile-ID-аар нэвтрэх</button>
+    </form>
+
+    <div class="footer">
+        🇪🇪 → 🇲🇳 Эстонийн нээлттэй эхийн TARA системд суурилав
+    </div>
+</div>
+</body>
+</html>

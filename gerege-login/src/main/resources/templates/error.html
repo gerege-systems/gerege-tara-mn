@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="mn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гэрэгэ — Алдаа</title>
+    <link rel="stylesheet" href="/gerege.css">
+</head>
+<body>
+<div class="card">
+    <div class="brand">
+        <div class="logo">⚠️</div>
+        <h1>Алдаа гарлаа</h1>
+    </div>
+    <div class="error-box">
+        <b th:text="${error}">error</b>
+        <p th:text="${description}" style="margin:8px 0 0;">Тайлбар</p>
+    </div>
+    <div class="footer">
+        🇪🇪 → 🇲🇳 Эстонийн нээлттэй эхийн TARA системд суурилав
+    </div>
+</div>
+</body>
+</html>

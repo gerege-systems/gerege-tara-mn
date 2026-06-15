@@ -1,0 +1,24 @@
+server:
+  port: 3000
+
+spring:
+  application:
+    name: gerege-login
+  thymeleaf:
+    cache: false   # хөгжүүлэлтэд template-ийг шууд дахин ачаална
+
+# Гэрэгэ-н тохиргоо
+gerege:
+  hydra:
+    # Hydra-гийн ADMIN порт (docker compose-д :4445). Production-д дотоод хаяг.
+    admin-url: http://localhost:4445
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    mn.gov.gerege: DEBUG
