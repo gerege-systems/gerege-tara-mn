@@ -19,7 +19,8 @@ dan.dgov.mn {
 	}
 
 	# Админ портал (нэвтрэлтийн ард) → dan-admin (4000), context-path /admin
-	handle /admin /admin/* {
+	@admin path /admin /admin/*
+	handle @admin {
 		reverse_proxy dan-admin:4000
 	}
 
