@@ -2,6 +2,13 @@
 # OIDC_SUBJECT_IDENTIFIERS_PAIRWISE_SALT) дамжина — энд хадгалахгүй.
 
 serve:
+  # TLS-ийг Caddy дээр төгсгөнө. Hydra нь дотоод сүлжээний прокси (Caddy)-оос
+  # ирсэн X-Forwarded-Proto=https-д итгэнэ — ингэснээр --dev-гүйгээр ажиллана.
+  tls:
+    allow_termination_from:
+      - 10.0.0.0/8
+      - 172.16.0.0/12
+      - 192.168.0.0/16
   cookies:
     same_site_mode: Lax
   public:

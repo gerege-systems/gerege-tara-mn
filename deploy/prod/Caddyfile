@@ -3,6 +3,15 @@
 dan.dgov.mn {
 	encode gzip
 
+	# Аюулгүй байдлын header-ууд
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+
 	# OIDC цөмийн нийтийн endpoint-ууд → Hydra public (4444)
 	@hydra path /oauth2/* /.well-known/* /userinfo /userinfo/* /health/*
 	handle @hydra {

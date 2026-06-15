@@ -40,7 +40,8 @@ services:
 
   hydra:
     image: oryd/hydra:v2.2.0
-    command: serve all --dev --config /etc/config/hydra/hydra.yml
+    # Production горим (--dev-гүй) — TLS termination итгэлцэл hydra.yml-д тохируулсан
+    command: serve all --config /etc/config/hydra/hydra.yml
     environment:
       DSN: postgres://hydra:${POSTGRES_PASSWORD}@postgres:5432/hydra?sslmode=disable
       SECRETS_SYSTEM: ${HYDRA_SECRET}
